@@ -1,5 +1,9 @@
-package kr.jsh.ecommerce.product.presentation;
+package kr.jsh.ecommerce.product.presentation.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.jsh.ecommerce.product.application.ProductService;
+import kr.jsh.ecommerce.product.presentation.dto.ProductInfoResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,16 +15,21 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
+@Tag(name="Product API", description = "상품 관련 API")
 public class ProductController {
 
-    @GetMapping
-    public ResponseEntity<List<Map<String, Object>>> getProductList(
+    private final ProductService productService;
+
+    public ProductController(ProductService productService){
+        this.productService = productService;
+    }
+
+    @GetMapping("/in-stock")
+    @Operation(summary = "상품 목록 조회",description = "재고가 있는 상품 목록을 조회합니다.")
+    public List<ProductInfoResponse> getInStockProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "9") int size) {
-        List<Map<String, Object>> products = List.of(
-                Map.of("productId", 1, "productName", "상품명1", "productPrice", 10000, "stockQuantity", 50, "isPublished", true)
-        );
-        return ResponseEntity.ok(products);
+        return productService.getInStockProducts();
     }
 
     @GetMapping("/top-sold")
