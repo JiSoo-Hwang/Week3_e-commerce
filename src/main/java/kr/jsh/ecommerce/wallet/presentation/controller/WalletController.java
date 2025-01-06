@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.wallets.presentation;
+package kr.jsh.ecommerce.wallet.presentation.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
