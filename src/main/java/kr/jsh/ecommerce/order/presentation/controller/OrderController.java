@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.order.presentation;
+package kr.jsh.ecommerce.order.presentation.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
