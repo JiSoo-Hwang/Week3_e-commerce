@@ -2,7 +2,7 @@ package kr.jsh.ecommerce.product.application;
 
 import kr.jsh.ecommerce.product.domain.ProductRepository;
 import kr.jsh.ecommerce.product.domain.ProductStatus;
-import kr.jsh.ecommerce.product.presentation.dto.ProductInfoResponse;
+import kr.jsh.ecommerce.product.presentation.dto.ProductListInfoResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,14 +17,13 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductInfoResponse> getInStockProducts(){
+    public List<ProductListInfoResponse> getInStockProducts(){
         return productRepository.getInStockProducts(ProductStatus.IN_STOCK).stream()
-                .map(product -> new ProductInfoResponse(
+                .map(product -> new ProductListInfoResponse(
                         product.getProductId(),
                         product.getProductName(),
-                        product.getProductCategory(),
-                        product.getProductPrice(),
-                        product.getProductStatus()
+                        product.getBrand(),
+                        product.getProductPrice()
                 ))
                 .collect(Collectors.toList());
     }
