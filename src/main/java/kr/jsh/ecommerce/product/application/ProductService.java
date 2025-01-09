@@ -1,7 +1,6 @@
 package kr.jsh.ecommerce.product.application;
 
 import kr.jsh.ecommerce.product.domain.ProductRepository;
-import kr.jsh.ecommerce.product.domain.ProductStatus;
 import kr.jsh.ecommerce.product.presentation.dto.ProductListInfoResponse;
 import org.springframework.stereotype.Service;
 
