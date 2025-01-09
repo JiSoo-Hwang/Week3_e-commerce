@@ -5,15 +5,11 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-@Entity
+@Embeddable
 @Getter
 public class ProductSize {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sizeId;
-
-    @Column(name = "PRODUCT_SIZE", unique = true)
+    @Column(name = "PRODUCT_SIZE", nullable = false)
     private int productSize;
 
     protected ProductSize(){}
