@@ -13,13 +13,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
-    generate-ddl: false
+    generate-ddl: true
     show-sql: true
     hibernate:
       ddl-auto: create-drop
     properties:
       hibernate.timezone.default_storage: NORMALIZE_UTC
       hibernate.jdbc.time_zone: UTC
+  test:
+    enabled: true
 ---
 springdoc:
   api-docs:
@@ -35,3 +37,6 @@ spring:
     url: jdbc:mysql://localhost:3306/hhplus?characterEncoding=UTF-8&serverTimezone=UTC
     username: application
     password: application
+  sql:
+    init:
+      mode: always
