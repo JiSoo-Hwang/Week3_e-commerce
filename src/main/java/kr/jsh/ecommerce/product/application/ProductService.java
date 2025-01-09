@@ -18,7 +18,7 @@ public class ProductService {
     }
 
     public List<ProductListInfoResponse> getInStockProducts(){
-        return productRepository.getInStockProducts(ProductStatus.IN_STOCK).stream()
+        return productRepository.getInStockProducts().stream()
                 .map(product -> new ProductListInfoResponse(
                         product.getProductId(),
                         product.getProductName(),
