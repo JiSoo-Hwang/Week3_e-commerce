@@ -1,38 +1,32 @@
 package kr.jsh.ecommerce.product.infrastructure;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import kr.jsh.ecommerce.product.domain.Product;
-import kr.jsh.ecommerce.product.domain.ProductStatus;
 import kr.jsh.ecommerce.product.domain.ProductRepository;
+import kr.jsh.ecommerce.product.domain.Stock;
+import kr.jsh.ecommerce.product.domain.StockRepository;
 import org.springframework.stereotype.Repository;
 
 import static kr.jsh.ecommerce.product.domain.QProduct.product;
+import static kr.jsh.ecommerce.product.domain.QStock.stock;
 
 import java.util.List;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private final JPAQueryFactory jpaQueryFactory;
+    private final StockRepository stockRepository;
 
-    public ProductRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
-        this.jpaQueryFactory = jpaQueryFactory;
+    public ProductRepositoryImpl(StockRepository stockRepository){
+        this.stockRepository=stockRepository;
     }
-
-
-    public void test(){
-        jpaQueryFactory.selectFrom(product);
-    }
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
-    public List<Product> getInStockProducts(ProductStatus productStatus) {
-        String jpql = "SELECT p FROM Product p WHERE p.productStatus = :productStatus";
-        return entityManager.createQuery(jpql,Product.class)
-                .setParameter("productStatus", productStatus)
-                .getResultList();
+    public List<Product> getInStockProducts() {
+        return stockRepository.getInStockProducts()
+                .stream()
+                .map(Stock::getProduct)
+                .distinct()
+                .toList();
     }
 }

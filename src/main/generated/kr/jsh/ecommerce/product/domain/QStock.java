@@ -28,6 +28,8 @@ public class QStock extends EntityPathBase<Stock> {
 
     public final QProductSize productSize;
 
+    public final EnumPath<ProductStatus> productStatus = createEnum("productStatus", ProductStatus.class);
+
     public final NumberPath<Long> stockId = createNumber("stockId", Long.class);
 
     public QStock(String variable) {

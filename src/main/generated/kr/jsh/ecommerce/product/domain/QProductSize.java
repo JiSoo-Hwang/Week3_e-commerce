@@ -12,16 +12,14 @@ import com.querydsl.core.types.Path;
 /**
  * QProductSize is a Querydsl query type for ProductSize
  */
-@Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QProductSize extends EntityPathBase<ProductSize> {
+@Generated("com.querydsl.codegen.DefaultEmbeddableSerializer")
+public class QProductSize extends BeanPath<ProductSize> {
 
     private static final long serialVersionUID = -205051895L;
 
     public static final QProductSize productSize1 = new QProductSize("productSize1");
 
     public final NumberPath<Integer> productSize = createNumber("productSize", Integer.class);
-
-    public final NumberPath<Long> sizeId = createNumber("sizeId", Long.class);
 
     public QProductSize(String variable) {
         super(ProductSize.class, forVariable(variable));
