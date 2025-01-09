@@ -13,37 +13,45 @@ public class Stock {
     private Long stockId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID",nullable = false)
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SIZE_ID",nullable = false)
+    @Embedded
     private ProductSize productSize;
 
     @Column(nullable = false)
     private int productQuantity;
 
-    protected Stock(){}
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus;
 
-    public Stock(Product product, ProductSize productSize,int productQuantity){
-        this.product=product;
-        this.productSize=productSize;
-        this.productQuantity=productQuantity;
+    protected Stock() {
+    }
+
+    public Stock(Product product, ProductSize productSize, int productQuantity,ProductStatus productStatus) {
+        this.product = product;
+        this.productSize = productSize;
+        this.productQuantity = productQuantity;
+        this.productStatus = (productQuantity > 0) ? ProductStatus.IN_STOCK : ProductStatus.OUT_OF_STOCK;
+    }
+
+    public Product getProduct(){
+        return product;
     }
 
     public void setProduct(Product product){
         this.product=product;
     }
 
-    public void addQuantity(int quantityToAdd){
-        this.productQuantity+=quantityToAdd;
-    }
-
-    public void removeQuanity(int quantityToRemove){
-        if(this.productQuantity<quantityToRemove){
-            throw new IllegalArgumentException("재고가 부족합니다.");//커스텀
+    public void updateQuantity(int productQuantity, OperationType operationType) {
+        if (operationType == OperationType.ADD) {
+            this.productQuantity += productQuantity;
+        } else if (operationType == OperationType.REMOVE) {
+            if (this.productQuantity < productQuantity) {
+                throw new IllegalArgumentException("재고가 부족합니다");//커스텀예정
+            }
+            this.productQuantity -= productQuantity;
         }
-        this.productQuantity-=quantityToRemove;
+        this.productStatus = (this.productQuantity > 0) ? ProductStatus.IN_STOCK : ProductStatus.OUT_OF_STOCK;
     }
-
 }
