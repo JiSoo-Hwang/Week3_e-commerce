@@ -35,6 +35,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.14")
+	implementation("org.projectlombok:lombok:1.18.30") // 최신 안정화 버전
+	annotationProcessor("org.projectlombok:lombok:1.18.30")
 
     // DB
 	runtimeOnly("com.mysql:mysql-connector-j")
@@ -44,6 +46,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mysql")
+	testImplementation("org.projectlombok:lombok:1.18.30")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
