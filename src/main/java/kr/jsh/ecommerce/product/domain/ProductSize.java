@@ -2,34 +2,32 @@ package kr.jsh.ecommerce.product.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Entity
+import java.util.Objects;
+
+@Embeddable
 @Getter
-@NoArgsConstructor
 public class ProductSize {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sizeId;
+    @Column(name = "PRODUCT_SIZE", nullable = false)
+    private int productSize;
 
-    private int size;
+    protected ProductSize(){}
 
-    private int stockQuantity;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    public ProductSize(int size, int stockQuantity){
-        this.size = size;
-        this.stockQuantity = stockQuantity;
+    public ProductSize(int productSize){
+        this.productSize=productSize;
     }
 
-    public void changeStockQuantity(int newStockQuantity){
-        this.stockQuantity = newStockQuantity;
-        if(product != null){
-            product.updateStatus(); //Product 상태 업데이트
-        }
+    @Override
+    public boolean equals(Object obj) {
+        if(this==obj) return true;
+        if(obj==null||getClass()!=obj.getClass()) return false;
+        ProductSize productSize1 = (ProductSize) obj;
+        return productSize == productSize1.productSize;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productSize);
     }
 }
