@@ -30,7 +30,7 @@ public class Fruit extends BaseEntity {
     private String status;
 
     //재고 감소
-    private void deductStock(int quantity){
+    public void deductStock(int quantity){
         if(quantity>this.fruitStock){
             throw new BaseCustomException(BaseErrorCode.OUT_OF_STOCK,new String[]{this.fruitName});
         }
