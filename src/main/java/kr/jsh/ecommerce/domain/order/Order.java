@@ -44,4 +44,10 @@ public class Order {
         this.orderFruits.add(orderFruit);
         orderFruit.setOrder(this);
     }
+
+    public void calculateTotalAmount() {
+        this.totalAmount = orderFruits.stream()
+                .mapToInt(OrderFruit::getSubTotal)
+                .sum();
+    }
 }
