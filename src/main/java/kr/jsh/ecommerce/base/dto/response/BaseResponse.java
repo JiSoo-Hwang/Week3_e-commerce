@@ -10,4 +10,8 @@ public class BaseResponse {
     private LocalDateTime timestamp = LocalDateTime.now();
     private String message = BaseErrorCode.SUCCESS.getMessage(); // 예외 메세지
     private String status = BaseErrorCode.SUCCESS.getHttpStatus().toString(); // HTTP 상태 코드
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
