@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "order_fruit")
@@ -40,6 +39,17 @@ public class OrderFruit {
     @Column(nullable = false)
     private int subTotal;
 
+    public OrderFruit(Order order, Customer customer,Fruit fruit,int fruitPrice, int quantity){
+        this.order=order;
+        this.customer=customer;
+        this.fruit=fruit;
+        this.fruitPrice=fruitPrice;
+        this.quantity=quantity;
+        this.subTotal=calculateSubTotal(fruitPrice,quantity);
+    }
+    private int calculateSubTotal(int fruitPrice,int quantity){
+        return fruitPrice*quantity;
+    }
     public void setOrder(Order order) {
         this.order = order;
     }
