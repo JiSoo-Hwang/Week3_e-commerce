@@ -14,7 +14,7 @@ public class ChargeWalletUseCase {
     private final WalletService walletService;
 
     public ChargeWalletResponse chargeWallet(ChargeWalletRequest chargeWalletRequest) {
-        Wallet wallet = walletService.getWalletByCustomerId(chargeWalletRequest.customerId());
+        Wallet wallet = walletService.getWalletByCustomerId(Long.parseLong(chargeWalletRequest.customerId()));
         return walletService.chargeWallet(wallet,chargeWalletRequest.chargeAmount());
     }
 }
