@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import kr.jsh.ecommerce.base.dto.BaseErrorCode;
 import kr.jsh.ecommerce.base.entity.BaseEntity;
 import kr.jsh.ecommerce.base.exception.BaseCustomException;
+import kr.jsh.ecommerce.domain.order.OrderFruit;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,7 +18,7 @@ import lombok.*;
 public class Fruit extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long fruitId;
 
     @Column(nullable = false)
     private String fruitName;
@@ -28,6 +31,9 @@ public class Fruit extends BaseEntity {
 
     @Column(nullable = false)
     private String status;
+
+    @OneToMany(mappedBy = "fruit",cascade = CascadeType.ALL,orphanRemoval = false)
+    private List<OrderFruit> orderFruits;
 
     //재고 감소
     public void deductStock(int quantity){
