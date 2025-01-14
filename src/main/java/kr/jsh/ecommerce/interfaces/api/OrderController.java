@@ -23,8 +23,8 @@ public class OrderController {
 
     private final CreateOrderUseCase createOrderUseCase;
 
-    @Operation(summary = "주문생성",description = "주문 내역을 가지고 주문을 생성합니다.")
-    @Parameter(name="orderCreateRequest",description = "주문 생성 정보", required = true)
+    @Operation(summary = "주문생성",description = "개별 과일들에 대한 주문들을 가지고 주문을 생성합니다.")
+    @Parameter(name="orderCreateRequest",description = "고객 정보와 개별 과일들에 대한 주문 정보", required = true)
     @PostMapping
     public ResponseEntity<BaseResponseContent> createOrder(@RequestBody OrderCreateRequest orderCreateRequest){
         OrderCreateResponse response = createOrderUseCase.createOrder(orderCreateRequest.customerId(),orderCreateRequest.orderFruits());
