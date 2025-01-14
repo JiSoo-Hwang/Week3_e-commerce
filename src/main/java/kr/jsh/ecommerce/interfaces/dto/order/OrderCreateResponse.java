@@ -1,7 +1,6 @@
 package kr.jsh.ecommerce.interfaces.dto.order;
 
 import kr.jsh.ecommerce.domain.order.Order;
-import kr.jsh.ecommerce.domain.order.OrderFruit;
 
 import java.util.Date;
 import java.util.List;
