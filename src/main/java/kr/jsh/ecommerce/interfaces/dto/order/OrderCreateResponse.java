@@ -2,14 +2,14 @@ package kr.jsh.ecommerce.interfaces.dto.order;
 
 import kr.jsh.ecommerce.domain.order.Order;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public record OrderCreateResponse(
         String orderId,
         String customerName,
-        Date orderDate,
+        LocalDateTime orderDate,
         int totalAmount,
         String orderStatus,
         List<OrderFruitResponse> orderFruits

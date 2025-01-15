@@ -10,7 +10,7 @@ import kr.jsh.ecommerce.interfaces.dto.order.OrderFruitRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class OrderService {
     public Order createOrder(Customer customer) {
         return Order.builder()
                 .customer(customer)
-                .orderDate(new Date())
+                .orderDate(LocalDateTime.now())
                 .orderStatus("PENDING")
                 .totalAmount(0)
                 .build();

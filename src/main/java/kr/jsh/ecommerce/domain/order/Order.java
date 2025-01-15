@@ -5,9 +5,8 @@ import kr.jsh.ecommerce.domain.customer.Customer;
 import kr.jsh.ecommerce.domain.payment.Payment;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,8 +24,9 @@ public class Order {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @Setter
     @Column(nullable = false)
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     @Column(nullable = false)
     private int totalAmount;
