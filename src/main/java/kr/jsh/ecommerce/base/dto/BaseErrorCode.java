@@ -19,7 +19,9 @@ public enum BaseErrorCode {
 
     // Custom Error
     OUT_OF_STOCK(HttpStatus.CONFLICT, "{0} 의 재고가 부족합니다."),
-    INSUFFICIENT_BALANCE(HttpStatus.CONFLICT, "{0} 님의 잔액이 부족합니다.")
+    INSUFFICIENT_BALANCE(HttpStatus.CONFLICT, "{0} 님의 잔액이 부족합니다."),
+    COUPON_EXPIRED(HttpStatus.GONE,"쿠폰이 만료되었습니다. 만료일 : {0}"),
+    ALREADY_USED_COUPON(HttpStatus.CONFLICT,"이미 사용된 쿠폰입니다. 사용일 : {0}")
     ;
 
     private final HttpStatus httpStatus;
