@@ -7,13 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Coupon extends BaseEntity {
+public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long couponId;
@@ -24,5 +22,4 @@ public class Coupon extends BaseEntity {
     @Column(nullable = false)
     private int discountAmount;
 
-    private Date expiredAt;
 }
