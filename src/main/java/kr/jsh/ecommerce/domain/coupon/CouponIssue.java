@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -37,16 +38,33 @@ public class CouponIssue {
     @Column(nullable = true)
     private LocalDateTime usedAt;
 
-    public boolean isExpired() {
-    return LocalDateTime.now().isAfter(issuedAt.plusDays(30));
+    @Column(nullable = true)
+    private LocalDateTime expiredAt;
+
+    public static CouponIssue create(Coupon coupon, Customer customer, String status) {
+        LocalDateTime now = LocalDateTime.now();
+        return new CouponIssue(
+                null,
+                coupon,
+                customer,
+                status,
+                now,
+                null,
+                now.plusDays(30) // 발급일 기준 30일 후
+        );
     }
 
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(issuedAt.plusDays(30));
+    }
     public void markAsUsed() {
         if(isExpired()){
-            throw new BaseCustomException(BaseErrorCode.COUPON_EXPIRED);//TODO:만료날짜안내
+            String formattedExpiredDate = expiredAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            throw new BaseCustomException(BaseErrorCode.COUPON_EXPIRED,new String[]{formattedExpiredDate});//TODO:만료날짜안내
         }
         if(usedAt != null){
-           throw new BaseCustomException(BaseErrorCode.ALREADY_USED_COUPON);//TODO:사용날짜안내
+            String formattedUsedDate = usedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+           throw new BaseCustomException(BaseErrorCode.ALREADY_USED_COUPON,new String[]{formattedUsedDate});//TODO:사용날짜안내
         }
         this.usedAt = LocalDateTime.now();
     }
