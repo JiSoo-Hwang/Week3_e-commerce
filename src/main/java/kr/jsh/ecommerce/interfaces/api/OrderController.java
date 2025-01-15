@@ -27,7 +27,7 @@ public class OrderController {
     @Parameter(name="orderCreateRequest",description = "고객 정보와 개별 과일들에 대한 주문 정보", required = true)
     @PostMapping
     public ResponseEntity<BaseResponseContent> createOrder(@RequestBody OrderCreateRequest orderCreateRequest){
-        OrderCreateResponse response = createOrderUseCase.createOrder(orderCreateRequest.customerId(),orderCreateRequest.orderFruits());
+        OrderCreateResponse response = createOrderUseCase.createOrder(orderCreateRequest.customerId(),orderCreateRequest.orderFruits());//TODO:굳이 여기서 ID랑 주문한 과일을 빼야 했을깡,,,?
         BaseResponseContent responseContent = new BaseResponseContent(response);
         responseContent.setMessage("주문 성공! 빠르게 배송해드릴게요 :)");
         return ResponseEntity
