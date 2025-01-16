@@ -13,17 +13,22 @@ import org.springframework.stereotype.Service;
 public class CouponService {
 
     private final CouponRepository couponRepository;
+    private final CouponIssueRepository couponIssueRepository;
+
     public Coupon findCoupon(Coupon coupon) {
-    return couponRepository.findById(coupon.getCouponId())
-            .orElseThrow(()->new BaseCustomException(BaseErrorCode.NOT_FOUND,new String[]{coupon.getCouponName()}));
+        return couponRepository.findById(coupon.getCouponId())
+                .orElseThrow(() -> new BaseCustomException(BaseErrorCode.NOT_FOUND, new String[]{coupon.getCouponName()}));
     }
-    public Coupon issue(CouponIssueRequest couponIssueRequest) {
+
+    public CouponIssue issueCoupon(CouponIssueRequest couponIssueRequest) {
         Coupon couponToBeIssued = couponIssueRequest.coupon();
         couponToBeIssued.issueCoupon();
-        return couponToBeIssued;
+        couponRepository.save(couponToBeIssued);
+        return CouponIssue.create(couponToBeIssued,couponIssueRequest.customer());
     }
-    public CouponResponse saveIssuedCoupon(Coupon issuedCoupon){
-        couponRepository.save(issuedCoupon);
-        return CouponIssueResponse.fromCoupon(issuedCoupon);
+
+    public CouponIssueResponse saveIssuedCoupon(CouponIssue issuedCoupon) {
+        couponIssueRepository.save(issuedCoupon);
+        return CouponIssueResponse.fromIssuedCoupon(issuedCoupon);
     }
 }

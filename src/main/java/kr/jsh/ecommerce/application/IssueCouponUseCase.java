@@ -17,9 +17,8 @@ public class IssueCouponUseCase {
     private final CouponIssueService couponIssueService;
     public CouponIssueResponse issueCoupon(CouponIssueRequest couponIssueRequest){
         Coupon coupon = couponService.findCoupon(couponIssueRequest.coupon());
-        Coupon issuedCoupon =  couponService.issue(couponIssueRequest);
-        CouponResponse couponResponse = couponService.saveIssuedCoupon(issuedCoupon);
-        return couponIssueService.saveIssuedCoupon(issuedCoupon);
+        CouponIssue issuedCoupon =  couponService.issueCoupon(couponIssueRequest);
+        return couponService.saveIssuedCoupon(issuedCoupon);
     }
 
 }
