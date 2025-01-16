@@ -3,9 +3,10 @@ package kr.jsh.ecommerce.infrastructure.coupon;
 import kr.jsh.ecommerce.domain.coupon.CouponIssue;
 import kr.jsh.ecommerce.domain.coupon.CouponIssueRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class CouponIssueRepositoryImpl implements CouponIssueRepository {
     }
 
     @Override
-    public Optional<CouponIssue> findById(Long customerId) {
-        return couponIssueJpaRepository.findById(customerId);
+    public List<CouponIssue> findByCustomerId(Long customerId, Pageable pageable) {
+        return couponIssueJpaRepository.findByCustomerId(customerId);
     }
 }
