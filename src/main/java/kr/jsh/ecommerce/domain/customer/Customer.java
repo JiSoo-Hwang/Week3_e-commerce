@@ -26,8 +26,7 @@ public class Customer {
     @Column(nullable = false)
     private String customerPhone;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "wallet_id")
+    @OneToOne(mappedBy = "customer")
     private Wallet wallet;
 
     public void setWallet(Wallet wallet) {

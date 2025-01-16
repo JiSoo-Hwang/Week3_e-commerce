@@ -17,11 +17,16 @@ public class Wallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long walletId;
 
-    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL,orphanRemoval = true)
-    private Customer customer;
-
     @Column(nullable = false)
     private int balance;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public void spendCash(int amount){
         if(amount>this.balance){
