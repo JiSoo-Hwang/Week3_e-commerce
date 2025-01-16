@@ -38,4 +38,5 @@ spring:
 
 logging:
   level:
-    org.springframework.context.annotation: DEBUG
+    root:INFO
+    kr.jsh.ecommerce.config.interceptor:DEBUG
