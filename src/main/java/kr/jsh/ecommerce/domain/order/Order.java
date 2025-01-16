@@ -50,4 +50,13 @@ public class Order {
                 .mapToInt(OrderFruit::getSubTotal)
                 .sum();
     }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+
+        // 양방향 관계 설정
+        if (payment != null) {
+            payment.setOrder(this);
+        }
+    }
 }

@@ -29,7 +29,7 @@ public class OrderController {
     public ResponseEntity<BaseResponseContent> createOrder(@RequestBody OrderCreateRequest orderCreateRequest){
         OrderCreateResponse response = createOrderUseCase.createOrder(orderCreateRequest.customerId(),orderCreateRequest.orderFruits());//TODO:굳이 여기서 ID랑 주문한 과일을 빼야 했을깡,,,?
         BaseResponseContent responseContent = new BaseResponseContent(response);
-        responseContent.setMessage("주문 성공! 빠르게 배송해드릴게요 :)");
+        responseContent.setMessage("주문 성공! 이제 결제해주세요 :)");
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(responseContent);

@@ -24,4 +24,7 @@ public class CouponIssueService {
         return couponIssueRepository.findByCustomerId(customerId, pageable);
     }
 
+    public CouponIssue findIssuedCouponById(Long couponIssueId) {
+        return couponIssueRepository.findById(couponIssueId).orElseThrow(()->new BaseCustomException(BaseErrorCode.NOT_FOUND));
+    }
 }

@@ -1,6 +1,7 @@
 package kr.jsh.ecommerce.domain.customer;
 
 import jakarta.persistence.*;
+import kr.jsh.ecommerce.domain.wallet.Wallet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,13 @@ public class Customer {
 
     @Column(nullable = false)
     private String customerPhone;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "wallet_id")
+    private Wallet wallet;
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
 
 }

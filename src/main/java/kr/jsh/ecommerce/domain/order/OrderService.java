@@ -47,4 +47,8 @@ public class OrderService {
         orderRepository.save(order);
         return OrderCreateResponse.fromOrder(order);
     }
+
+    public Order findOrderById(Long orderId) {
+    return orderRepository.findById(orderId).orElseThrow(()-> new BaseCustomException(BaseErrorCode.NOT_FOUND));
+    }
 }
