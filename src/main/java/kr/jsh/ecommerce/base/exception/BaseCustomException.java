@@ -1,9 +1,11 @@
 package kr.jsh.ecommerce.base.exception;
 
 import kr.jsh.ecommerce.base.dto.BaseErrorCode;
+import lombok.Getter;
 
 import java.text.MessageFormat;
 
+@Getter
 public class BaseCustomException extends RuntimeException {
     private final BaseErrorCode baseErrorCode;
     private String[] msgArgs;
