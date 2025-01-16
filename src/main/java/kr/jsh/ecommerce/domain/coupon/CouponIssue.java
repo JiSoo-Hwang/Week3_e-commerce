@@ -30,9 +30,6 @@ public class CouponIssue {
     private Customer customer;
 
     @Column(nullable = false)
-    private String status;
-
-    @Column(nullable = false)
     private LocalDateTime issuedAt;
 
     @Column(nullable = true)
@@ -41,21 +38,25 @@ public class CouponIssue {
     @Column(nullable = true)
     private LocalDateTime expiredAt;
 
-    public static CouponIssue create(Coupon coupon, Customer customer, String status) {
+    @Enumerated(EnumType.STRING) // Enum을 문자열로 저장
+    @Column(nullable = false)
+    private CouponStatus status;
+
+    public static CouponIssue create(Coupon coupon, Customer customer) {
         LocalDateTime now = LocalDateTime.now();
         return new CouponIssue(
                 null,
                 coupon,
                 customer,
-                status,
                 now,
                 null,
-                now.plusDays(30) // 발급일 기준 30일 후
+                now.plusDays(30),// 발급일 기준 30일 후
+                CouponStatus.ISSUED
         );
     }
 
     public boolean isExpired() {
-        return LocalDateTime.now().isAfter(issuedAt.plusDays(30));
+        return LocalDateTime.now().isAfter(expiredAt);
     }
     public void markAsUsed() {
         if(isExpired()){
@@ -66,6 +67,7 @@ public class CouponIssue {
             String formattedUsedDate = usedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
            throw new BaseCustomException(BaseErrorCode.ALREADY_USED_COUPON,new String[]{formattedUsedDate});//TODO:사용날짜안내
         }
+        this.status = CouponStatus.USED;
         this.usedAt = LocalDateTime.now();
     }
 }
