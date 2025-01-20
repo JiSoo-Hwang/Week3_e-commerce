@@ -20,6 +20,8 @@ spring:
     properties:
       hibernate.timezone.default_storage: NORMALIZE_UTC
       hibernate.jdbc.time_zone: UTC
+  test:
+    enabled: true
 ---
 springdoc:
   api-docs:
@@ -37,5 +39,5 @@ spring:
     password: application
 
 logging:
-  level:
-    org.springframework.context.annotation: DEBUG
+   level:
+     org.springframework.context.annotation: DEBUG
