@@ -1,22 +1,30 @@
 package kr.jsh.ecommerce.order.presentation.controller;
 
-import kr.jsh.ecommerce.order.domain.OrderSheet;
-import kr.jsh.ecommerce.order.facade.OrderFacade;
-import kr.jsh.ecommerce.order.presentation.dto.OrderClientRequest;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final OrderFacade orderFacade;
-
-    public OrderController(OrderFacade orderFacade) {
-        this.orderFacade = orderFacade;
-    }
-
     @PostMapping
-    public OrderSheet placeOrder(@RequestBody OrderClientRequest orderClientRequest) {
-        return orderFacade.placeOrder(orderClientRequest.customer(),orderClientRequest.orderRequests());
+    public ResponseEntity<Map<String, Object>> createOrder(@RequestBody Map<String, Object> request) {
+        Map<String, Object> response = Map.of(
+                "orderId", 1001,
+                "customerId", request.get("customerId"),
+                "orderDate", "2025-01-01T12:00:00",
+                "orderSheets", List.of(
+                        Map.of("productId", 1, "productName", "상품명1", "quantity", 2, "productPrice", 10000, "subTotal", 20000),
+                        Map.of("productId", 2, "productName", "상품명2", "quantity", 1, "productPrice", 15000, "subTotal", 15000)
+                ),
+                "totalAmount", 35000
+        );
+        return ResponseEntity.ok(response);
     }
 }

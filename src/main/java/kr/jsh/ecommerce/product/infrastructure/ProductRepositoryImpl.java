@@ -7,8 +7,6 @@ import kr.jsh.ecommerce.product.domain.Stock;
 import kr.jsh.ecommerce.product.domain.StockRepository;
 import org.springframework.stereotype.Repository;
 
-import static kr.jsh.ecommerce.product.domain.QProduct.product;
-import static kr.jsh.ecommerce.product.domain.QStock.stock;
 
 import java.util.List;
 

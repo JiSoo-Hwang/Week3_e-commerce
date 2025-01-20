@@ -7,7 +7,6 @@ import kr.jsh.ecommerce.product.domain.Stock;
 import kr.jsh.ecommerce.product.domain.StockRepository;
 import org.springframework.stereotype.Repository;
 
-import static kr.jsh.ecommerce.product.domain.QStock.stock;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +24,10 @@ public class StockRepositoryImpl implements StockRepository {
 
     @Override
     public List<Stock> getInStockProducts() {
-        return jpaQueryFactory
+        return  null; /*jpaQueryFactory
                 .selectFrom(stock)
                 .where(stock.productQuantity.gt(0))
-                .fetch();
+                .fetch();*/
     }
 
     public Optional<Stock> findStockForUpdate(Long productId,int productSize){

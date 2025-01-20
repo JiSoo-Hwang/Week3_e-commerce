@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
-    generate-ddl: true
+    generate-ddl: false
     show-sql: true
     hibernate:
       ddl-auto: create-drop
@@ -37,6 +37,7 @@ spring:
     url: jdbc:mysql://localhost:3306/hhplus?characterEncoding=UTF-8&serverTimezone=UTC
     username: application
     password: application
-  sql:
-    init:
-      mode: always
+
+logging:
+   level:
+     org.springframework.context.annotation: DEBUG
