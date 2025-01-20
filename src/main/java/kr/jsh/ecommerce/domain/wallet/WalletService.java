@@ -2,7 +2,7 @@ package kr.jsh.ecommerce.domain.wallet;
 
 import kr.jsh.ecommerce.base.dto.BaseErrorCode;
 import kr.jsh.ecommerce.base.exception.BaseCustomException;
-import kr.jsh.ecommerce.interfaces.dto.wallet.ChargeWalletResponse;
+import kr.jsh.ecommerce.interfaces.api.wallet.dto.ChargeWalletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

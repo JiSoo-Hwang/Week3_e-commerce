@@ -1,7 +1,7 @@
 package kr.jsh.ecommerce.application.coupon;
 
 import kr.jsh.ecommerce.domain.coupon.CouponIssueService;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponIssueResponse;
+import kr.jsh.ecommerce.interfaces.api.coupon.dto.CouponIssueResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

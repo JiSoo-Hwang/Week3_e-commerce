@@ -2,16 +2,11 @@ package kr.jsh.ecommerce.domain.coupon;
 
 import kr.jsh.ecommerce.base.dto.BaseErrorCode;
 import kr.jsh.ecommerce.base.exception.BaseCustomException;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponIssueRequest;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponIssueResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

@@ -4,8 +4,8 @@ import kr.jsh.ecommerce.domain.coupon.Coupon;
 import kr.jsh.ecommerce.domain.coupon.CouponIssue;
 import kr.jsh.ecommerce.domain.coupon.CouponIssueService;
 import kr.jsh.ecommerce.domain.coupon.CouponService;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponIssueRequest;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponIssueResponse;
+import kr.jsh.ecommerce.interfaces.api.coupon.dto.CouponIssueRequest;
+import kr.jsh.ecommerce.interfaces.api.coupon.dto.CouponIssueResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

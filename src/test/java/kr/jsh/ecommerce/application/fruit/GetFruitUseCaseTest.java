@@ -2,12 +2,10 @@ package kr.jsh.ecommerce.application.fruit;
 
 import kr.jsh.ecommerce.domain.fruit.Fruit;
 import kr.jsh.ecommerce.domain.fruit.FruitService;
-import kr.jsh.ecommerce.interfaces.dto.fruit.FruitResponse;
+import kr.jsh.ecommerce.interfaces.api.fruit.dto.FruitResponse;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

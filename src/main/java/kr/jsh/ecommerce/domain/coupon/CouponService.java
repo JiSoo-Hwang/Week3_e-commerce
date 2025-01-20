@@ -2,9 +2,8 @@ package kr.jsh.ecommerce.domain.coupon;
 
 import kr.jsh.ecommerce.base.dto.BaseErrorCode;
 import kr.jsh.ecommerce.base.exception.BaseCustomException;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponIssueRequest;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponIssueResponse;
-import kr.jsh.ecommerce.interfaces.dto.coupon.CouponResponse;
+import kr.jsh.ecommerce.interfaces.api.coupon.dto.CouponIssueRequest;
+import kr.jsh.ecommerce.interfaces.api.coupon.dto.CouponIssueResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

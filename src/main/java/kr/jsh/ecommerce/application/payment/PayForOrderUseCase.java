@@ -6,10 +6,8 @@ import kr.jsh.ecommerce.domain.order.Order;
 import kr.jsh.ecommerce.domain.order.OrderService;
 import kr.jsh.ecommerce.domain.payment.Payment;
 import kr.jsh.ecommerce.domain.payment.PaymentService;
-import kr.jsh.ecommerce.domain.wallet.Wallet;
-import kr.jsh.ecommerce.domain.wallet.WalletService;
-import kr.jsh.ecommerce.interfaces.dto.payment.PaymentRequest;
-import kr.jsh.ecommerce.interfaces.dto.payment.PaymentResponse;
+import kr.jsh.ecommerce.interfaces.api.payment.dto.PaymentRequest;
+import kr.jsh.ecommerce.interfaces.api.payment.dto.PaymentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -5,8 +5,8 @@ import kr.jsh.ecommerce.base.exception.BaseCustomException;
 import kr.jsh.ecommerce.domain.customer.Customer;
 import kr.jsh.ecommerce.domain.fruit.Fruit;
 import kr.jsh.ecommerce.domain.fruit.FruitRepository;
-import kr.jsh.ecommerce.interfaces.dto.order.OrderCreateResponse;
-import kr.jsh.ecommerce.interfaces.dto.order.OrderFruitRequest;
+import kr.jsh.ecommerce.interfaces.api.order.dto.OrderCreateResponse;
+import kr.jsh.ecommerce.interfaces.api.order.dto.OrderFruitRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
