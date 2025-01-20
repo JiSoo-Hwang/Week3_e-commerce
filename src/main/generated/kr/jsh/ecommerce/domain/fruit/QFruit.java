@@ -20,11 +20,6 @@ public class QFruit extends EntityPathBase<Fruit> {
 
     public static final QFruit fruit = new QFruit("fruit");
 
-    public final kr.jsh.ecommerce.base.entity.QBaseEntity _super = new kr.jsh.ecommerce.base.entity.QBaseEntity(this);
-
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
-
     public final NumberPath<Long> fruitId = createNumber("fruitId", Long.class);
 
     public final StringPath fruitName = createString("fruitName");
@@ -36,9 +31,6 @@ public class QFruit extends EntityPathBase<Fruit> {
     public final ListPath<kr.jsh.ecommerce.domain.order.OrderFruit, kr.jsh.ecommerce.domain.order.QOrderFruit> orderFruits = this.<kr.jsh.ecommerce.domain.order.OrderFruit, kr.jsh.ecommerce.domain.order.QOrderFruit>createList("orderFruits", kr.jsh.ecommerce.domain.order.OrderFruit.class, kr.jsh.ecommerce.domain.order.QOrderFruit.class, PathInits.DIRECT2);
 
     public final StringPath status = createString("status");
-
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QFruit(String variable) {
         super(Fruit.class, forVariable(variable));

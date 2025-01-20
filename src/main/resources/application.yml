@@ -39,5 +39,6 @@ spring:
     password: application
 
 logging:
-   level:
-     org.springframework.context.annotation: DEBUG
+  level:
+    root:INFO
+    kr.jsh.ecommerce.config.interceptor:DEBUG

@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA용 기본 생성자
 @AllArgsConstructor(access = AccessLevel.PRIVATE) // Builder용 생성자
 @Table(name = "fruit")
-public class Fruit extends BaseEntity {
+public class Fruit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fruitId;
