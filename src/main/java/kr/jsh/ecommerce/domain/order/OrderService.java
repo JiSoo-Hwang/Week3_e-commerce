@@ -23,7 +23,7 @@ public class OrderService {
         return Order.builder()
                 .customer(customer)
                 .orderDate(LocalDateTime.now())
-                .orderStatus("PENDING")
+                .orderStatus(OrderStatus.PENDING)
                 .totalAmount(0)
                 .build();
     }
@@ -36,7 +36,6 @@ public class OrderService {
             fruitRepository.save(fruit);
             OrderFruit orderFruit = new OrderFruit(
                     order,
-                    order.getCustomer(),
                     fruit,
                     orderFruitRequest.fruitPrice(),
                     orderFruitRequest.quantity()
