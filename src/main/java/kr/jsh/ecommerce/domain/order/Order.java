@@ -31,8 +31,9 @@ public class Order {
     @Column(nullable = false)
     private int totalAmount;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String orderStatus;
+    private OrderStatus orderStatus;
 
     @OneToMany(mappedBy = "order", cascade=CascadeType.PERSIST)
     private List<OrderFruit> orderFruits = new ArrayList<>();
@@ -58,5 +59,11 @@ public class Order {
         if (payment != null) {
             payment.setOrder(this);
         }
+    }
+    public void changeOrderStatus(OrderStatus newStatus) {
+        if (this.orderStatus == OrderStatus.CANCELLED) {
+            throw new IllegalStateException("취소된 주문은 상태를 변경할 수 없습니다.");
+        }
+        this.orderStatus = newStatus; // 주문 상태 변경 로직
     }
 }

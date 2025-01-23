@@ -14,7 +14,7 @@ public class WalletRepositoryImpl implements WalletRepository {
 
     @Override
     public Optional<Wallet> findByCustomerId(Long customerId) {
-        return walletJpaRepository.findById(customerId);
+        return walletJpaRepository.findByCustomerId(customerId);
     }
 
     @Override
