@@ -22,8 +22,9 @@ public enum BaseErrorCode {
     INSUFFICIENT_BALANCE(HttpStatus.CONFLICT, "{0} 님의 잔액이 부족합니다."),
     COUPON_EXPIRED(HttpStatus.GONE,"쿠폰이 만료되었습니다. 만료일 : {0}"),
     ALREADY_USED_COUPON(HttpStatus.CONFLICT,"이미 사용된 쿠폰입니다. 사용일 : {0}"),
-    ALREADY_ISSUED_COUPON(HttpStatus.CONFLICT,"{0}은 이미 발급된 쿠폰입니다.")
-    ;
+    ALREADY_ISSUED_COUPON(HttpStatus.CONFLICT,"{0}은 이미 발급된 쿠폰입니다."),
+    CONCURRENCY_ISSUE(HttpStatus.CONFLICT, "동시성 문제가 발생했습니다. 작업 : {0}"),
+    UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 에러가 발생했습니다. 작업 : {0}");
 
     private final HttpStatus httpStatus;
     private final String message;

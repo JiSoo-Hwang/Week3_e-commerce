@@ -20,6 +20,9 @@ public class Wallet {
     @Column(nullable = false)
     private int balance;
 
+    @Version
+    private int version; // 낙관적 락 관리용 필드
+
     @OneToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
@@ -28,17 +31,17 @@ public class Wallet {
         this.customer = customer;
     }
 
-    public void spendCash(int amount){
-        if(amount>this.balance){
-            throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER,new String[]{String.valueOf(amount)});
+    public void spendCash(int amount) {
+        if (amount > this.balance) {
+            throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER, new String[]{String.valueOf(amount)});
         }
-        this.balance-=amount;
+        this.balance -= amount;
     }
 
-    public void chargeCash(int amount){
-        if(amount<0||amount%100!=0){
-            throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER,new String[]{String.valueOf(amount)});
+    public void chargeCash(int amount) {
+        if (amount < 0 || amount % 100 != 0) {
+            throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER, new String[]{String.valueOf(amount)});
         }
-        this.balance+=amount;
+        this.balance += amount;
     }
 }

@@ -38,7 +38,7 @@ public class WalletController {
     @Operation(summary = "지갑 잔액 조회",description = "고객 식별자를 기준으로 잔액을 조회합니다.")
     @Parameter(name = "customerId",description = "고객 정보와",required = true)
     @GetMapping("/{customerId}")
-    public ResponseEntity<BaseResponseContent> getWalletById(@PathVariable Long customerId){//TODO:이게 최선인지 생각해볼 것...
+    public ResponseEntity<BaseResponseContent> getWalletById(@PathVariable Long customerId){
         WalletResponse walletResponse = getWalletUseCase.getWalletByCustomerId(customerId);
         return ResponseEntity.ok(new BaseResponseContent(walletResponse));
     }
