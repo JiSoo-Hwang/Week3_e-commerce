@@ -9,7 +9,8 @@ public record CouponIssueResponse(
         Long couponId,           // 쿠폰 ID
         String couponName,       // 쿠폰 이름
         int discountAmount,      // 할인 금액
-        Long customerId,         // 고객 ID
+        Long customerId,
+        String customerName,// 고객 ID
         LocalDateTime issuedAt,  // 발급일
         LocalDateTime expiredAt, // 만료일
         String status            // 상태 (ISSUED, USED, EXPIRED)
@@ -22,6 +23,7 @@ public record CouponIssueResponse(
                 couponIssue.getCoupon().getCouponName(),
                 couponIssue.getCoupon().getDiscountAmount(),
                 couponIssue.getCustomer().getCustomerId(),
+                couponIssue.getCustomer().getCustomerName(),
                 couponIssue.getIssuedAt(),
                 couponIssue.getExpiredAt(),
                 couponIssue.getStatus().toString() // Enum 값을 문자열로 변환
