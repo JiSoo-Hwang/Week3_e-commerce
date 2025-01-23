@@ -16,13 +16,13 @@ public class FruitRepositoryImpl implements FruitRepository {
     private final FruitJpaRepository fruitJpaRepository;
 
     @Override
-    public Page<Fruit> findAll(Pageable pageable) {
-        return fruitJpaRepository.findAll(pageable);
+    public Optional<Fruit> findById(Long fruitId) {
+        return fruitJpaRepository.findById(fruitId);
     }
 
     @Override
-    public Optional<Fruit> findById(Long fruitId) {
-        return fruitJpaRepository.findById(fruitId);
+    public Optional<Fruit> findByIdForUpdate(Long fruitId) {
+        return fruitJpaRepository.findByIdForUpdate(fruitId);
     }
 
     @Override

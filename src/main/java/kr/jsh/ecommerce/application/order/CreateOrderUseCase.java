@@ -24,7 +24,7 @@ public class CreateOrderUseCase {
     public OrderCreateResponse createOrder(OrderCreateRequest orderCreateRequest) {
 
         //customerId로 Customer 조회
-        Customer customer = customerService.getCustomerById(Long.parseLong(orderCreateRequest.customerId()));
+        Customer customer = customerService.findCustomerById(Long.parseLong(orderCreateRequest.customerId()));
         Order order = orderService.createOrder(customer);
         return orderService.saveOrder(order, orderCreateRequest.orderFruits());
     }
