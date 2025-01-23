@@ -1,12 +1,12 @@
-package kr.jsh.ecommerce.interfaces.api;
+package kr.jsh.ecommerce.interfaces.api.order.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.jsh.ecommerce.application.order.CreateOrderUseCase;
 import kr.jsh.ecommerce.base.dto.response.BaseResponseContent;
-import kr.jsh.ecommerce.interfaces.dto.order.OrderCreateRequest;
-import kr.jsh.ecommerce.interfaces.dto.order.OrderCreateResponse;
+import kr.jsh.ecommerce.interfaces.api.order.dto.OrderCreateRequest;
+import kr.jsh.ecommerce.interfaces.api.order.dto.OrderCreateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class OrderController {
     @Parameter(name="orderCreateRequest",description = "고객 정보와 개별 과일들에 대한 주문 정보", required = true)
     @PostMapping
     public ResponseEntity<BaseResponseContent> createOrder(@RequestBody OrderCreateRequest orderCreateRequest){
-        OrderCreateResponse response = createOrderUseCase.createOrder(orderCreateRequest.customerId(),orderCreateRequest.orderFruits());//TODO:굳이 여기서 ID랑 주문한 과일을 빼야 했을깡,,,?
+        OrderCreateResponse response = createOrderUseCase.createOrder(orderCreateRequest);//TODO:굳이 여기서 ID랑 주문한 과일을 빼야 했을깡,,,?
         BaseResponseContent responseContent = new BaseResponseContent(response);
         responseContent.setMessage("주문 성공! 이제 결제해주세요 :)");
         return ResponseEntity

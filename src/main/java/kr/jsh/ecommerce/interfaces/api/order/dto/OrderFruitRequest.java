@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.interfaces.dto.order;
+package kr.jsh.ecommerce.interfaces.api.order.dto;
 
 public record OrderFruitRequest(
         String fruitId,

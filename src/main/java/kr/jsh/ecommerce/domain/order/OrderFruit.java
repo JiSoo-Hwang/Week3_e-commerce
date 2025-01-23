@@ -23,10 +23,6 @@ public class OrderFruit {
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
-
-    @ManyToOne
     @JoinColumn(name = "fruit_id", nullable = false)
     private Fruit fruit;
 
@@ -39,9 +35,8 @@ public class OrderFruit {
     @Column(nullable = false)
     private int subTotal;
 
-    public OrderFruit(Order order, Customer customer,Fruit fruit,int fruitPrice, int quantity){
+    public OrderFruit(Order order,Fruit fruit,int fruitPrice, int quantity){
         this.order=order;
-        this.customer=customer;
         this.fruit=fruit;
         this.fruitPrice=fruitPrice;
         this.quantity=quantity;

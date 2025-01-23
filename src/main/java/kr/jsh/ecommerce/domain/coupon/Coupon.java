@@ -18,10 +18,6 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long couponId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id",nullable = false)
-    private Customer customer;
-
     @Column(nullable = false)
     private String couponName;
 
@@ -33,6 +29,7 @@ public class Coupon {
 
     @Column(nullable = false)
     private int issuedCount; // 현재 발급된 수량
+
 
     public void issueCoupon(){
         if(issuedCount>=maxQuantity){

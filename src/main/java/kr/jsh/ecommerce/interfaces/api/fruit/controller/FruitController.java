@@ -1,10 +1,10 @@
-package kr.jsh.ecommerce.interfaces.api;
+package kr.jsh.ecommerce.interfaces.api.fruit.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.jsh.ecommerce.application.fruit.GetFruitsUseCase;
 import kr.jsh.ecommerce.base.dto.response.BaseResponsePage;
-import kr.jsh.ecommerce.interfaces.dto.fruit.FruitResponse;
+import kr.jsh.ecommerce.interfaces.api.fruit.dto.FruitResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

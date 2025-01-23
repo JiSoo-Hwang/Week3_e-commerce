@@ -2,7 +2,7 @@ package kr.jsh.ecommerce.application.fruit;
 
 import kr.jsh.ecommerce.domain.fruit.FruitService;
 
-import kr.jsh.ecommerce.interfaces.dto.fruit.FruitResponse;
+import kr.jsh.ecommerce.interfaces.api.fruit.dto.FruitResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

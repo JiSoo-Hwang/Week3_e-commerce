@@ -1,6 +1,7 @@
-package kr.jsh.ecommerce.interfaces.dto.order;
+package kr.jsh.ecommerce.interfaces.api.order.dto;
 
 import kr.jsh.ecommerce.domain.order.Order;
+import kr.jsh.ecommerce.domain.order.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,7 @@ public record OrderCreateResponse(
         String customerName,
         LocalDateTime orderDate,
         int totalAmount,
-        String orderStatus,
+        OrderStatus orderStatus,
         List<OrderFruitResponse> orderFruits
 ) {
     public static OrderCreateResponse fromOrder(Order order) {

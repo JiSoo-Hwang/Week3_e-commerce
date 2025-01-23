@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.interfaces.dto.fruit;
+package kr.jsh.ecommerce.interfaces.api.fruit.dto;
 
 import kr.jsh.ecommerce.domain.fruit.Fruit;
 

@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.interfaces.api;
+package kr.jsh.ecommerce.interfaces.api.wallet.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -6,9 +6,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.jsh.ecommerce.application.wallet.ChargeWalletUseCase;
 import kr.jsh.ecommerce.application.wallet.GetWalletUseCase;
 import kr.jsh.ecommerce.base.dto.response.BaseResponseContent;
-import kr.jsh.ecommerce.interfaces.dto.wallet.ChargeWalletRequest;
-import kr.jsh.ecommerce.interfaces.dto.wallet.ChargeWalletResponse;
-import kr.jsh.ecommerce.interfaces.dto.wallet.WalletResponse;
+import kr.jsh.ecommerce.interfaces.api.wallet.dto.ChargeWalletRequest;
+import kr.jsh.ecommerce.interfaces.api.wallet.dto.ChargeWalletResponse;
+import kr.jsh.ecommerce.interfaces.api.wallet.dto.WalletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class WalletController {
     @Operation(summary = "지갑 잔액 조회",description = "고객 식별자를 기준으로 잔액을 조회합니다.")
     @Parameter(name = "customerId",description = "고객 정보와",required = true)
     @GetMapping("/{customerId}")
-    public ResponseEntity<BaseResponseContent> getWalletById(@PathVariable Long customerId){//TODO:이게 최선인지 생각해볼 것...
+    public ResponseEntity<BaseResponseContent> getWalletById(@PathVariable Long customerId){
         WalletResponse walletResponse = getWalletUseCase.getWalletByCustomerId(customerId);
         return ResponseEntity.ok(new BaseResponseContent(walletResponse));
     }

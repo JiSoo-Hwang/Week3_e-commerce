@@ -1,9 +1,9 @@
-package kr.jsh.ecommerce.interfaces.api;
+package kr.jsh.ecommerce.interfaces.api.payment.controller;
 
 import kr.jsh.ecommerce.application.payment.PayForOrderUseCase;
 import kr.jsh.ecommerce.base.dto.response.BaseResponseContent;
-import kr.jsh.ecommerce.interfaces.dto.payment.PaymentRequest;
-import kr.jsh.ecommerce.interfaces.dto.payment.PaymentResponse;
+import kr.jsh.ecommerce.interfaces.api.payment.dto.PaymentRequest;
+import kr.jsh.ecommerce.interfaces.api.payment.dto.PaymentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -43,7 +43,7 @@ public class Fruit{
         this.fruitStock -= quantity;
     }
 
-    //재고 복구
+    //재고 채우기
     public void restoreStock(int quantity){
         //음수 입력 방지
         if(quantity<0){

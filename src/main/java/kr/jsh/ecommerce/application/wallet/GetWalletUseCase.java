@@ -2,7 +2,7 @@ package kr.jsh.ecommerce.application.wallet;
 
 import kr.jsh.ecommerce.domain.wallet.Wallet;
 import kr.jsh.ecommerce.domain.wallet.WalletService;
-import kr.jsh.ecommerce.interfaces.dto.wallet.WalletResponse;
+import kr.jsh.ecommerce.interfaces.api.wallet.dto.WalletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

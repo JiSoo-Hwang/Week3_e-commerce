@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.interfaces.dto.payment;
+package kr.jsh.ecommerce.interfaces.api.payment.dto;
 
 public record PaymentRequest(
         Long orderId,

@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.interfaces.dto.wallet;
+package kr.jsh.ecommerce.interfaces.api.wallet.dto;
 
 public record ChargeWalletRequest(
         String customerId,

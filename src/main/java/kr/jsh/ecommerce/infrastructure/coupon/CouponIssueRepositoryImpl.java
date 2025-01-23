@@ -1,7 +1,9 @@
 package kr.jsh.ecommerce.infrastructure.coupon;
 
+import kr.jsh.ecommerce.domain.coupon.Coupon;
 import kr.jsh.ecommerce.domain.coupon.CouponIssue;
 import kr.jsh.ecommerce.domain.coupon.CouponIssueRepository;
+import kr.jsh.ecommerce.domain.customer.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,12 +23,8 @@ public class CouponIssueRepositoryImpl implements CouponIssueRepository {
     }
 
     @Override
-    public Page<CouponIssue> findByCustomerId(Long customerId, Pageable pageable) {
-        return couponIssueJpaRepository.findByCustomerId(customerId);
+    public boolean existsByCouponAndCustomer(Coupon couponTobeIssued, Customer customer) {
+        return couponIssueJpaRepository.existsByCouponAndCustomer(couponTobeIssued,customer);
     }
 
-    @Override
-    public Optional<CouponIssue> findById(Long couponIssueId) {
-        return couponIssueJpaRepository.findById(couponIssueId);
-    }
 }
