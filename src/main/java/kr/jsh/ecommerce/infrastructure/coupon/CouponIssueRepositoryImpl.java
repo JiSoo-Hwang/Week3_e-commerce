@@ -24,7 +24,7 @@ public class CouponIssueRepositoryImpl implements CouponIssueRepository {
 
     @Override
     public List<CouponIssue> findByCustomerId(Long customerId) {
-        return List.of();
+        return couponIssueJpaRepository.findByCustomerId(customerId);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CouponIssueRepositoryImpl implements CouponIssueRepository {
 
     @Override
     public Optional<CouponIssue> findById(Long couponIssueId) {
-        return Optional.empty();
+        return couponIssueJpaRepository.findById(couponIssueId);
     }
 
 }
