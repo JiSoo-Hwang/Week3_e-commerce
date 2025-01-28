@@ -9,7 +9,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @EnableJpaAuditing
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "kr.jsh.ecommerce.infrastructure")
 public class JpaConfig {
 
     @Bean

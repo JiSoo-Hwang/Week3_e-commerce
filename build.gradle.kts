@@ -51,11 +51,13 @@ dependencies {
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 
 	// Test
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group = "org.junit.vintage", module = "junit-vintage-engine") // JUnit 4 제외
+	}
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	testImplementation("org.testcontainers:mysql:1.19.0")
+	testImplementation("org.testcontainers:junit-jupiter:1.19.0")
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
-	testImplementation("org.testcontainers:junit-jupiter")
-	testImplementation("org.testcontainers:mysql")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 // QueryDSL 설정
