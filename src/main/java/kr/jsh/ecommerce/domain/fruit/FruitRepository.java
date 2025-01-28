@@ -11,4 +11,6 @@ public interface FruitRepository {
     Optional<Fruit> findByIdForUpdate(Long fruitId); // 비관적 락을 사용하는 메서드
 
     Fruit save(Fruit fruit);
+
+    Page<Fruit> findAll(Pageable pageable);
 }

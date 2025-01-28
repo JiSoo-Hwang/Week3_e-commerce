@@ -40,5 +40,5 @@ spring:
 
 logging:
   level:
-    root:INFO
-    kr.jsh.ecommerce.config.interceptor:DEBUG
+    root: INFO
+    kr.jsh.ecommerce.config.interceptor: DEBUG

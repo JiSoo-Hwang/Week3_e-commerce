@@ -22,8 +22,6 @@ public class QOrderFruit extends EntityPathBase<OrderFruit> {
 
     public static final QOrderFruit orderFruit = new QOrderFruit("orderFruit");
 
-    public final kr.jsh.ecommerce.domain.customer.QCustomer customer;
-
     public final kr.jsh.ecommerce.domain.fruit.QFruit fruit;
 
     public final NumberPath<Integer> fruitPrice = createNumber("fruitPrice", Integer.class);
@@ -54,7 +52,6 @@ public class QOrderFruit extends EntityPathBase<OrderFruit> {
 
     public QOrderFruit(Class<? extends OrderFruit> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.customer = inits.isInitialized("customer") ? new kr.jsh.ecommerce.domain.customer.QCustomer(forProperty("customer"), inits.get("customer")) : null;
         this.fruit = inits.isInitialized("fruit") ? new kr.jsh.ecommerce.domain.fruit.QFruit(forProperty("fruit")) : null;
         this.order = inits.isInitialized("order") ? new QOrder(forProperty("order"), inits.get("order")) : null;
     }

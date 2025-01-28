@@ -29,4 +29,9 @@ public class FruitRepositoryImpl implements FruitRepository {
     public Fruit save(Fruit fruit) {
         return fruitJpaRepository.save(fruit);
     }
+
+    @Override
+    public Page<Fruit> findAll(Pageable pageable) {
+        return fruitJpaRepository.findAll(pageable);
+    }
 }

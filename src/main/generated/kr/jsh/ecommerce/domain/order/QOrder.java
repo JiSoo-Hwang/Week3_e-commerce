@@ -30,7 +30,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final NumberPath<Long> orderId = createNumber("orderId", Long.class);
 
-    public final StringPath orderStatus = createString("orderStatus");
+    public final EnumPath<OrderStatus> orderStatus = createEnum("orderStatus", OrderStatus.class);
 
     public final kr.jsh.ecommerce.domain.payment.QPayment payment;
 

@@ -14,26 +14,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class IssueCouponUseCase {
 
-    private final CouponService couponService;
     private final CouponIssueService couponIssueService;
-    private final CustomerService customerService;
 
-    @Transactional
     public CouponIssueResponse issueCoupon(CouponIssueRequest request) {
-        // 1. 쿠폰 조회 및 락 설정
-        Coupon coupon = couponService.findCouponWithLock(request.couponId());
-
-        // 2. 고객 조회
-        Customer customer = customerService.findCustomerById(request.customerId());
-
-        // 3. 쿠폰 발급 처리 (중복 여부 확인 포함)
-        CouponIssue couponIssue = couponIssueService.issueCoupon(coupon, customer);
-
-        // 5. 응답 반환
-        return CouponIssueResponse.fromIssuedCoupon(couponIssue);
+        CouponIssue issuedCoupon = couponIssueService.issueCoupon(request.couponId(), request.customerId());
+        return CouponIssueResponse.fromEntity(issuedCoupon);
     }
 }

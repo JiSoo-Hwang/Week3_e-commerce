@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CouponIssueRepository {
-    CouponIssue save(CouponIssue issuedCoupon);
-    boolean existsByCouponAndCustomer(Coupon couponTobeIssued, Customer customer);
+    CouponIssue save(CouponIssue couponIssue);
+    List<CouponIssue> findByCustomerId(Long customerId);
+    boolean existsByCouponIdAndCustomerId(Long couponId, Long customerId);
+    Optional<CouponIssue> findById(Long couponIssueId);
 }
