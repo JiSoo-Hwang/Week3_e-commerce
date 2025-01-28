@@ -35,6 +35,7 @@ public class Order {
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
+    @Builder.Default
     @OneToMany(mappedBy = "order", cascade=CascadeType.PERSIST)
     private List<OrderFruit> orderFruits = new ArrayList<>();
 
