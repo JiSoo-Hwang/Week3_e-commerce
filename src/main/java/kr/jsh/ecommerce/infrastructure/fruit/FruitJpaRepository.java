@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface FruitJpaRepository extends JpaRepository<Fruit, Long> {
@@ -14,4 +15,7 @@ public interface FruitJpaRepository extends JpaRepository<Fruit, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT f FROM Fruit f WHERE f.fruitId = :fruitId")
     Optional<Fruit> findByIdForUpdate(@Param("fruitId") Long fruitId);
+
+    List<Fruit> findByStatus(String status);
+    Optional<Fruit> findByfruitName(String fruitName);
 }
