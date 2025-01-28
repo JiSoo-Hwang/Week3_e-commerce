@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:tc:mysql:8.0.32:///testdb  # Testcontainers를 위한 설정
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  test:
+    enabled: true

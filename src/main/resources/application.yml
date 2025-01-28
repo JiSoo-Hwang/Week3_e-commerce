@@ -26,11 +26,14 @@ spring:
 springdoc:
   api-docs:
     enabled: true
+    path: /v3/api-docs
   swagger-ui:
     enabled: true
-    path: /swagger-ui.html
+    path: /swagger-ui/index.html
+    operations-sorter: alpha
+    tags-sorter: alpha
 ---
-spring.config.activate.on-profile: local, test
+spring.config.activate.on-profile: local
 
 spring:
   datasource:
@@ -41,4 +44,4 @@ spring:
 logging:
   level:
     root: INFO
-    kr.jsh.ecommerce.config.interceptor: DEBUG
+    org.springdoc: DEBUG
