@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,15 +17,11 @@ public class QCoupon extends EntityPathBase<Coupon> {
 
     private static final long serialVersionUID = -1426849848L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QCoupon coupon = new QCoupon("coupon");
 
     public final NumberPath<Long> couponId = createNumber("couponId", Long.class);
 
     public final StringPath couponName = createString("couponName");
-
-    public final kr.jsh.ecommerce.domain.customer.QCustomer customer;
 
     public final NumberPath<Integer> discountAmount = createNumber("discountAmount", Integer.class);
 
@@ -35,24 +30,15 @@ public class QCoupon extends EntityPathBase<Coupon> {
     public final NumberPath<Integer> maxQuantity = createNumber("maxQuantity", Integer.class);
 
     public QCoupon(String variable) {
-        this(Coupon.class, forVariable(variable), INITS);
+        super(Coupon.class, forVariable(variable));
     }
 
     public QCoupon(Path<? extends Coupon> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCoupon(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCoupon(PathMetadata metadata, PathInits inits) {
-        this(Coupon.class, metadata, inits);
-    }
-
-    public QCoupon(Class<? extends Coupon> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.customer = inits.isInitialized("customer") ? new kr.jsh.ecommerce.domain.customer.QCustomer(forProperty("customer"), inits.get("customer")) : null;
+        super(Coupon.class, metadata);
     }
 
 }

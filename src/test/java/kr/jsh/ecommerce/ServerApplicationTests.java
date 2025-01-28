@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootTest
-@EnableJpaRepositories(basePackages = "kr.jsh.ecommerce.product.infrastructure")
 class ServerApplicationTests {
 
 	@Test

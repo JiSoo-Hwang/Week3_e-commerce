@@ -1,4 +1,4 @@
-package kr.jsh.ecommerce.interfaces.api.order.controller;
+package kr.jsh.ecommerce.interfaces.api.fruit.order.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

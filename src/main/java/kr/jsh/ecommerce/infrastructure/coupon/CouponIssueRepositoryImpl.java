@@ -23,8 +23,18 @@ public class CouponIssueRepositoryImpl implements CouponIssueRepository {
     }
 
     @Override
-    public boolean existsByCouponAndCustomer(Coupon couponTobeIssued, Customer customer) {
-        return couponIssueJpaRepository.existsByCouponAndCustomer(couponTobeIssued,customer);
+    public List<CouponIssue> findByCustomerId(Long customerId) {
+        return List.of();
+    }
+
+    @Override
+    public boolean existsByCouponIdAndCustomerId(Long couponId, Long customerId) {
+        return false;
+    }
+
+    @Override
+    public Optional<CouponIssue> findById(Long couponIssueId) {
+        return Optional.empty();
     }
 
 }

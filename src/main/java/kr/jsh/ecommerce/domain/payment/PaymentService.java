@@ -3,6 +3,8 @@ package kr.jsh.ecommerce.domain.payment;
 import kr.jsh.ecommerce.domain.coupon.CouponIssue;
 import kr.jsh.ecommerce.domain.order.Order;
 import kr.jsh.ecommerce.domain.order.OrderRepository;
+import kr.jsh.ecommerce.domain.payment.Payment;
+import kr.jsh.ecommerce.domain.payment.PaymentRepository;
 import kr.jsh.ecommerce.domain.wallet.Wallet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

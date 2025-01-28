@@ -54,7 +54,7 @@ public class QCouponIssue extends EntityPathBase<CouponIssue> {
 
     public QCouponIssue(Class<? extends CouponIssue> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.coupon = inits.isInitialized("coupon") ? new QCoupon(forProperty("coupon"), inits.get("coupon")) : null;
+        this.coupon = inits.isInitialized("coupon") ? new QCoupon(forProperty("coupon")) : null;
         this.customer = inits.isInitialized("customer") ? new kr.jsh.ecommerce.domain.customer.QCustomer(forProperty("customer"), inits.get("customer")) : null;
     }
 

@@ -26,6 +26,8 @@ public class QWallet extends EntityPathBase<Wallet> {
 
     public final kr.jsh.ecommerce.domain.customer.QCustomer customer;
 
+    public final NumberPath<Integer> version = createNumber("version", Integer.class);
+
     public final NumberPath<Long> walletId = createNumber("walletId", Long.class);
 
     public QWallet(String variable) {

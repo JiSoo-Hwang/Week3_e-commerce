@@ -4,13 +4,11 @@ import jakarta.persistence.*;
 import kr.jsh.ecommerce.base.dto.BaseErrorCode;
 import kr.jsh.ecommerce.base.exception.BaseCustomException;
 import kr.jsh.ecommerce.domain.customer.Customer;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Coupon {
