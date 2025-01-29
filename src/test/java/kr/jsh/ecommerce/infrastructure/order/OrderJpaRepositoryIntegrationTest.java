@@ -55,16 +55,24 @@ public class OrderJpaRepositoryIntegrationTest {
 
     private Order savedOrder;
     private Customer savedCustomer;
-    private Fruit savedFruit;
+    private Fruit savedFruit1;
+    private Fruit savedFruit2;
+    private Fruit savedFruit3;
 
     @BeforeEach
     void setUp(){
-        Customer customer = Customer.create("김경덕","서울시","01033334444");
+        Customer customer = Customer.create("박혜림","서울시","01033334444");
         savedCustomer = customerJpaRepository.save(customer);
 
-        Fruit strawberry = Fruit.create("딸기",5000,10,"재고있음");
-        strawberry.deductStock(2);
-        savedFruit = fruitJpaRepository.save(strawberry);
+        Fruit hanrabong = Fruit.create("한라봉",5000,100,"재고있음");
+        Fruit tangerine = Fruit.create("귤",300,150,"재고있음");
+        Fruit cheonhyehyang = Fruit.create("천혜향",2000,120,"재고있음");
+        hanrabong.deductStock(20);
+        tangerine.deductStock(80);
+        cheonhyehyang.deductStock(30);
+        savedFruit1 = fruitJpaRepository.save(hanrabong);
+        savedFruit2 = fruitJpaRepository.save(tangerine);
+        savedFruit3 = fruitJpaRepository.save(cheonhyehyang);
 
         Order order = Order.builder()
                 .customer(savedCustomer)
@@ -72,13 +80,27 @@ public class OrderJpaRepositoryIntegrationTest {
                 .orderStatus(OrderStatus.PAID)
                 .build();
 
-        OrderFruit orderFruit = new OrderFruit(
+        OrderFruit orderFruit1 = new OrderFruit(
                 order,
-                savedFruit,
-                savedFruit.getFruitPrice(),
-                2
+                savedFruit1,
+                savedFruit1.getFruitPrice(),
+                20
         );
-        order.addOrderFruit(orderFruit);
+        OrderFruit orderFruit2 = new OrderFruit(
+                order,
+                savedFruit2,
+                savedFruit2.getFruitPrice(),
+                80
+        );
+        OrderFruit orderFruit3 = new OrderFruit(
+                order,
+                savedFruit3,
+                savedFruit3.getFruitPrice(),
+                30
+        );
+        order.addOrderFruit(orderFruit1);
+        order.addOrderFruit(orderFruit2);
+        order.addOrderFruit(orderFruit3);
         order.calculateTotalAmount();
         savedOrder = orderJpaRepository.save(order);
     }
@@ -96,8 +118,7 @@ public class OrderJpaRepositoryIntegrationTest {
 
         //Then
         Assertions.assertThat(foundOrder).isPresent();
-        Assertions.assertThat(foundOrder.get().getTotalAmount()).isEqualTo(10000);
-        Assertions.assertThat(foundOrder.get().getOrderFruits().size()).isEqualTo(1);
-        Assertions.assertThat(foundOrder.get().getTotalAmount()).isEqualTo(10000);
+        Assertions.assertThat(foundOrder.get().getTotalAmount()).isEqualTo(184000);
+        Assertions.assertThat(foundOrder.get().getOrderFruits().size()).isEqualTo(3);
     }
 }
