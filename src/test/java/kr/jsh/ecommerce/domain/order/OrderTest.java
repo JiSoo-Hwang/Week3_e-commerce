@@ -20,7 +20,7 @@ class OrderTest {
     @BeforeEach
     void setUp() {
         order = Order.builder()
-                .customer(new Customer())
+                .customer(Customer.create("이호민"))
                 .orderDate(LocalDateTime.now())
                 .orderStatus(OrderStatus.PENDING)
                 .build();
