@@ -29,6 +29,13 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private Wallet wallet;
 
+    public static Customer create(Long customerId, String customerName) {
+        Customer customer = new Customer();
+        customer.customerId = customerId;
+        customer.customerName = customerName;
+        return customer;
+    }
+
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }

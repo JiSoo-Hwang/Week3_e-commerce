@@ -35,6 +35,15 @@ public class Fruit{
     @OneToMany(mappedBy = "fruit",cascade = CascadeType.ALL,orphanRemoval = false)
     private List<OrderFruit> orderFruits;
 
+    public static Fruit create(String fruitName, int fruitPrice, int fruitStock, String status) {
+        Fruit fruit = new Fruit();
+        fruit.fruitName = fruitName;
+        fruit.fruitPrice = fruitPrice;
+        fruit.fruitStock = fruitStock;
+        fruit.status = status;
+        return fruit;
+    }
+
     //재고 감소
     public void deductStock(int quantity){
         if(quantity>this.fruitStock){
