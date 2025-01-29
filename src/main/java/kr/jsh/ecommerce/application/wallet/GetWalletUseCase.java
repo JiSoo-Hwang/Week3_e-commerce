@@ -12,6 +12,6 @@ public class GetWalletUseCase {
     private final WalletService walletService;
     public WalletResponse getWalletByCustomerId(Long customerId){
         Wallet foundWallet = walletService.getWalletByCustomerId(customerId);
-        return new WalletResponse(foundWallet.getBalance());//TODO:스읍,,, 이게 최선일까,,,
+        return WalletResponse.from(foundWallet);
     }
 }
