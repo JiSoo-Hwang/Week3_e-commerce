@@ -26,7 +26,7 @@ public class PayForOrderUseCase {
             issuedCoupon = couponIssueService.findIssuedCouponById(paymentRequest.couponIssueId());
         }
         // 결제 생성
-        Payment payment = paymentService.createPayment(order, issuedCoupon, paymentRequest.status());
+        Payment payment = paymentService.createPayment(order, issuedCoupon);
         return PaymentResponse.fromEntity(payment);
     }
 }

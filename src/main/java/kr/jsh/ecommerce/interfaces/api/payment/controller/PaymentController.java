@@ -17,7 +17,7 @@ public class PaymentController {
     private final PayForOrderUseCase payForOrderUseCase;
 
     @PostMapping("/{orderId}")
-    public ResponseEntity<BaseResponseContent> createPayment(@RequestBody PaymentRequest paymentRequest){
+    public ResponseEntity<BaseResponseContent<PaymentResponse>> createPayment(@RequestBody PaymentRequest paymentRequest){
         PaymentResponse response = payForOrderUseCase.payForOrder(paymentRequest);
         BaseResponseContent<PaymentResponse> responseContent = new BaseResponseContent<>(response);
         responseContent.setMessage("결제 성공! 빠르게 배송해드릴게요 :)");
