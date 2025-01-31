@@ -16,7 +16,7 @@ public class BaseCustomException extends RuntimeException {
     }
 
     public BaseCustomException(BaseErrorCode baseErrorCode, String[] msgArgs) {
-        super(baseErrorCode.getMessage());
+        super(MessageFormat.format(baseErrorCode.getMessage(), (Object[]) msgArgs));
         this.baseErrorCode = baseErrorCode;
         this.msgArgs = msgArgs;
     }

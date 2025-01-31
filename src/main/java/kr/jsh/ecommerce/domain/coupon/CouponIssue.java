@@ -43,6 +43,9 @@ public class CouponIssue {
 
     public static CouponIssue create(Coupon coupon, Customer customer) {
         LocalDateTime now = LocalDateTime.now();
+
+        coupon.issueCoupon();
+
         return CouponIssue.builder()
                 .coupon(coupon)
                 .customer(customer)
@@ -54,6 +57,14 @@ public class CouponIssue {
 
     public boolean isExpired() {
         return LocalDateTime.now().isAfter(expiredAt);
+    }
+
+    //쿠폰을 조회할 때 expiredAt을 확인하고, 상태를 변경(ISSUED->EXPIRED)하는 로직 추가
+    //스케줄러로 DB에 저장된 쿠폰의 상태값을 정기적으로 UPDATE하는 것도 고려해볼 수 있음
+    public void updateStatusIfExpired() {
+        if (isExpired() && this.status != CouponStatus.EXPIRED) {
+            this.status = CouponStatus.EXPIRED;
+        }
     }
 
     public void markAsUsed() {

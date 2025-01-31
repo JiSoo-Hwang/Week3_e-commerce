@@ -26,11 +26,32 @@ public class Payment {
     @Column(nullable = false)
     private int amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status;
+    private PaymentStatus paymentStatus;
 
     @Column(nullable = false)
     private LocalDateTime paidAt;
+
+    // 기본 상태 "PENDING"을 적용하는 생성자 추가
+    public static Payment create(Order order, int amount) {
+        return new Payment(null, order, amount, PaymentStatus.PENDING, LocalDateTime.now());
+    }
+
+    // 상태 변경 메서드 추가
+    public void completePayment() {
+        this.paymentStatus = PaymentStatus.SUCCESS;
+    }
+
+    // 결제 실패 상태 변경
+    public void failPayment() {
+        this.paymentStatus = PaymentStatus.FAILED;
+    }
+
+    // 결제 환불
+    public void refundPayment() {
+        this.paymentStatus = PaymentStatus.REFUNDED;
+    }
 
     public void setOrder(Order order) {
         this.order = order;

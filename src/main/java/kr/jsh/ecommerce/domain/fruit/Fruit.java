@@ -29,11 +29,21 @@ public class Fruit{
     @Column(nullable = false)
     private int fruitPrice;
 
+    //TODO:하드코딩된 상태값 StockStatus로 바꾸기
     @Column(nullable = false)
     private String status;
 
     @OneToMany(mappedBy = "fruit",cascade = CascadeType.ALL,orphanRemoval = false)
     private List<OrderFruit> orderFruits;
+
+    public static Fruit create(String fruitName, int fruitPrice, int fruitStock, String status) {
+        Fruit fruit = new Fruit();
+        fruit.fruitName = fruitName;
+        fruit.fruitPrice = fruitPrice;
+        fruit.fruitStock = fruitStock;
+        fruit.status = status;
+        return fruit;
+    }
 
     //재고 감소
     public void deductStock(int quantity){

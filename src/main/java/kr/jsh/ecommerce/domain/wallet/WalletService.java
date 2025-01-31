@@ -23,6 +23,7 @@ public class WalletService {
     public ChargeWalletResponse chargeWallet(Wallet wallet, int amount) {
         int maxRetryCount = 3; // 최대 재시도 횟수
         int retryCount = 0;
+        int originalBalance = wallet.getBalance();
 
         while (retryCount < maxRetryCount) {
             try {
@@ -31,6 +32,9 @@ public class WalletService {
                 return new ChargeWalletResponse(chargedWallet.getBalance());
             } catch (OptimisticLockException e) {
                 retryCount++;
+                wallet = walletRepository.findByCustomerId(wallet.getCustomer().getCustomerId())
+                        .orElseThrow(() -> new BaseCustomException(BaseErrorCode.NOT_FOUND));
+                wallet = Wallet.create(wallet.getCustomer(), originalBalance);
                 if (retryCount == maxRetryCount) {
                     throw new BaseCustomException(BaseErrorCode.CONCURRENCY_ISSUE, new String[]{"지갑 충전"});
                 }

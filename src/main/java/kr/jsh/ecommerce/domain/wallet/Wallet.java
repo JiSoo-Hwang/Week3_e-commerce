@@ -31,8 +31,15 @@ public class Wallet {
         this.customer = customer;
     }
 
+    public static Wallet create(Customer customer, int initialBalance) {
+        Wallet wallet = new Wallet();
+        wallet.customer = customer;
+        wallet.balance = initialBalance;
+        return wallet;
+    }
+
     public void spendCash(int amount) {
-        if (amount > this.balance) {
+        if (amount > this.balance||amount%100!=0) {
             throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER, new String[]{String.valueOf(amount)});
         }
         this.balance -= amount;
