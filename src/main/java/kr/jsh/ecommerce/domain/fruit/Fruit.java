@@ -29,6 +29,7 @@ public class Fruit{
     @Column(nullable = false)
     private int fruitPrice;
 
+    //TODO:하드코딩된 상태값 StockStatus로 바꾸기
     @Column(nullable = false)
     private String status;
 
