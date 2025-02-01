@@ -6,6 +6,6 @@ public record ProductSalesResponse(
         Integer totalQuantity
 ) {
     public static ProductSalesResponse from(ProductSalesDTO dto){
-        return new ProductSalesResponse(dto.productId(),dto.productName(),dto.totalQuantity());
+        return new ProductSalesResponse(dto.getProductId(),dto.getProductName(),dto.getTotalQuantity());
     }
 }
