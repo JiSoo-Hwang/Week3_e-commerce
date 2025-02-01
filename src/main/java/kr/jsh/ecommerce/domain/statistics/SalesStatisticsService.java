@@ -13,8 +13,12 @@ import java.util.stream.Collectors;
 @Service
 public class SalesStatisticsService {
     private final SalesStatisticsRepository statisticsRepository;
+
     public List<ProductSalesResponse> getTop5SellingProducts(LocalDateTime startDate) {
-        List<ProductSalesDTO> productsSalesData = statisticsRepository.findTop5BestSellingProducts(startDate);
+        List<ProductSalesDTO> productsSalesData = statisticsRepository.findTop5BestSellingProducts(startDate)
+                .stream()
+                .limit(5)
+                .toList();
         return productsSalesData.stream()
                 .map(ProductSalesResponse::from)
                 .collect(Collectors.toList());
