@@ -45,9 +45,13 @@ public class Fruit{
         return fruit;
     }
 
+    public boolean hasEnoughStock(int quantity){
+        return this.getFruitStock() >= quantity;
+    }
+
     //재고 감소
     public void deductStock(int quantity){
-        if(quantity>this.fruitStock){
+        if(!hasEnoughStock(quantity)){
             throw new BaseCustomException(BaseErrorCode.OUT_OF_STOCK,new String[]{this.fruitName});
         }
         this.fruitStock -= quantity;
@@ -56,8 +60,8 @@ public class Fruit{
     //재고 채우기
     public void restoreStock(int quantity){
         //음수 입력 방지
-        if(quantity<0){
-            throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER,new String[]{String.valueOf(quantity)});
+        if(quantity<=0){
+            throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER,new String[]{"재고 복구 값은 1 이상이어야 합니다: " + quantity});
         }
         this.fruitStock+=quantity;
     }
