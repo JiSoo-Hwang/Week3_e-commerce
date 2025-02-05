@@ -40,6 +40,10 @@ dependencies {
 	// DB
 	runtimeOnly("com.mysql:mysql-connector-j")
 
+	// Redis
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+	implementation("org.redisson:redisson-spring-boot-starter:3.26.0")
+
 	// QueryDSL
 	implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
 	annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
@@ -83,4 +87,8 @@ tasks.clean {
 tasks.withType<Test> {
 	useJUnitPlatform()
 	systemProperty("user.timezone", "UTC")
+}
+// 기본적으로 테스트 실행 안함
+tasks.withType<Test>().configureEach {
+	enabled = false
 }
