@@ -10,9 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,10 +25,10 @@ public class CouponIssueService {
     private final CouponIssueRepository couponIssueRepository;
     private final CustomerRepository customerRepository; // Customer 조회용
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public CouponIssue issueCoupon(Long couponId, Long customerId) {
         // 1. 쿠폰 조회
-        Coupon coupon = couponRepository.findById(couponId)
+        Coupon coupon = couponRepository.findByIdForUpdate(couponId)
                 .orElseThrow(() -> new BaseCustomException(BaseErrorCode.NOT_FOUND, new String[]{"쿠폰이 존재하지 않습니다."}));
 
         // 2. 고객 조회
@@ -34,8 +36,9 @@ public class CouponIssueService {
                 .orElseThrow(() -> new BaseCustomException(BaseErrorCode.NOT_FOUND, new String[]{"고객이 존재하지 않습니다."}));
 
         // 3. 중복 발급 확인
-        if (couponIssueRepository.existsByCouponIdAndCustomerId(couponId, customerId)) {
-            throw new BaseCustomException(BaseErrorCode.ALREADY_ISSUED_COUPON, new String[]{coupon.getCouponName()});
+        Optional<CouponIssue> issuedCoupon = couponIssueRepository.findIssuedCoupon(couponId,customerId);
+        if(issuedCoupon.isPresent()){
+            throw new BaseCustomException(BaseErrorCode.ALREADY_ISSUED_COUPON,new String[]{coupon.getCouponName()});
         }
 
         // 4. 쿠폰 발급 처리

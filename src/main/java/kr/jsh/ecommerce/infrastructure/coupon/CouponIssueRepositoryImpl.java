@@ -4,6 +4,7 @@ import kr.jsh.ecommerce.domain.coupon.Coupon;
 import kr.jsh.ecommerce.domain.coupon.CouponIssue;
 import kr.jsh.ecommerce.domain.coupon.CouponIssueRepository;
 import kr.jsh.ecommerce.domain.customer.Customer;
+import kr.jsh.ecommerce.infrastructure.customer.CustomerJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,8 +29,8 @@ public class CouponIssueRepositoryImpl implements CouponIssueRepository {
     }
 
     @Override
-    public boolean existsByCouponIdAndCustomerId(Long couponId, Long customerId) {
-        return false;
+    public Optional<CouponIssue> findIssuedCoupon(Long couponId, Long customerId) {
+        return couponIssueJpaRepository.findIssuedCoupon(couponId,customerId);
     }
 
     @Override
