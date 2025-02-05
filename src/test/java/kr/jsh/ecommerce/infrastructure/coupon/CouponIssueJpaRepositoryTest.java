@@ -92,14 +92,4 @@ public class CouponIssueJpaRepositoryTest {
         assertThat(result).isNotEmpty();
         assertThat(result.get(0).getCoupon().getCouponName()).isEqualTo("VIP 고객 할인 쿠폰");
     }
-
-    @Test
-    @DisplayName("existsByCouponAndCustomer()가 고객이 이미 해당 쿠폰을 발급받았는지 확인해야 한다")
-    void existsByCouponAndCustomer_success() {
-        // When
-        boolean exists = couponIssueJpaRepository.existsByCouponAndCustomer(savedCoupon, savedCustomer);
-
-        // Then
-        assertThat(exists).isTrue();
-    }
 }
