@@ -61,7 +61,6 @@ public class CouponIssueServiceTest {
         //Given : 쿠폰 및 고객 존재 여부 Mock 설정
         when(couponRepository.findById(1L)).thenReturn(Optional.of(mockCoupon));
         when(customerRepository.findById(300L)).thenReturn(Optional.of(mockCustomer));
-        when(couponIssueRepository.existsByCouponIdAndCustomerId(1L,300L)).thenReturn(false);
         when(couponIssueRepository.save(any(CouponIssue.class))).thenReturn(mockCouponIssue);
 
         //When : 쿠폰 발급 실행
@@ -76,7 +75,6 @@ public class CouponIssueServiceTest {
         //Verify : 필요한 메서드가 올바르게 호출되었는지 검증
         verify(couponRepository,times(1)).findById(1L);
         verify(customerRepository,times(1)).findById(300L);
-        verify(couponIssueRepository,times(1)).existsByCouponIdAndCustomerId(1L,300L);
         verify(couponIssueRepository,times(1)).save(any(CouponIssue.class));
     }
     @Test
@@ -93,7 +91,6 @@ public class CouponIssueServiceTest {
 
         // Verify: 쿠폰이 존재하지 않으므로 이후 메서드는 호출되지 않아야 함
         verify(customerRepository, never()).findById(anyLong());
-        verify(couponIssueRepository, never()).existsByCouponIdAndCustomerId(anyLong(), anyLong());
         verify(couponIssueRepository, never()).save(any(CouponIssue.class));
     }
 
@@ -111,7 +108,6 @@ public class CouponIssueServiceTest {
         assertThat(exception.getMessage()).contains("고객이 존재하지 않습니다.");
 
         // Verify: 고객이 존재하지 않으므로 이후 메서드는 호출되지 않아야 함
-        verify(couponIssueRepository, never()).existsByCouponIdAndCustomerId(anyLong(), anyLong());
         verify(couponIssueRepository, never()).save(any(CouponIssue.class));
     }
 
@@ -121,7 +117,6 @@ public class CouponIssueServiceTest {
         // Given: 쿠폰 및 고객 존재, 하지만 이미 발급된 경우
         when(couponRepository.findById(1L)).thenReturn(Optional.of(mockCoupon));
         when(customerRepository.findById(100L)).thenReturn(Optional.of(mockCustomer));
-        when(couponIssueRepository.existsByCouponIdAndCustomerId(1L, 100L)).thenReturn(true);
 
         // When & Then: 예외 발생 검증
         BaseCustomException exception = assertThrows(BaseCustomException.class,
