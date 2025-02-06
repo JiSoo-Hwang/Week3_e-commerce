@@ -21,4 +21,6 @@ public interface CouponIssueJpaRepository extends JpaRepository<CouponIssue, Lon
 
     @Query("SELECT ci FROM CouponIssue ci WHERE ci.coupon.id = :couponId AND ci.customer.id = :customerId")
     Optional<CouponIssue> findIssuedCoupon(@Param("couponId") Long couponId, @Param("customerId") Long customerId);
+
+    boolean existsByCoupon_CouponIdAndCustomer_CustomerId(Long couponId, Long customerId);
 }

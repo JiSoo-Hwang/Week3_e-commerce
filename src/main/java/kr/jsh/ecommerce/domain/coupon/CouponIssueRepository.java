@@ -12,4 +12,5 @@ public interface CouponIssueRepository {
     List<CouponIssue> findByCustomerId(Long customerId);
     Optional<CouponIssue> findById( Long couponIssueId);
     Optional<CouponIssue> findIssuedCoupon(Long couponId, Long customerId);
+    boolean existsByCoupon_CouponIdAndCustomer_CustomerId(Long couponId, Long customerId);
 }
