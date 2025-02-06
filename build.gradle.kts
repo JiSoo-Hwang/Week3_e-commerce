@@ -41,6 +41,7 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j")
 
 	// Redis
+	implementation ("org.springframework.boot:spring-boot-starter-cache")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.redisson:redisson-spring-boot-starter:3.26.0")
 
@@ -87,8 +88,4 @@ tasks.clean {
 tasks.withType<Test> {
 	useJUnitPlatform()
 	systemProperty("user.timezone", "UTC")
-}
-// 기본적으로 테스트 실행 안함
-tasks.withType<Test>().configureEach {
-	enabled = false
 }
