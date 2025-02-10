@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
+    private final DataPlatFormClient dataPlatFormClient;
 
     @Transactional
     public Payment createPayment(Order order, CouponIssue issuedCoupon) {
@@ -43,6 +44,8 @@ public class PaymentService {
             // 예외 발생 시 결제 실패 처리
             payment.failPayment();
         }
+
+        dataPlatFormClient.sendOrderData(OrderData.from(order));
 
         //결제 정보 저장
         paymentRepository.save(payment);

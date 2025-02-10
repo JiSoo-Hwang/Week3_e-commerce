@@ -27,6 +27,7 @@ public class PayForOrderUseCase {
         }
         // 결제 생성
         Payment payment = paymentService.createPayment(order, issuedCoupon);
+
         return PaymentResponse.fromEntity(payment);
     }
 }
