@@ -40,6 +40,11 @@ dependencies {
 	// DB
 	runtimeOnly("com.mysql:mysql-connector-j")
 
+	// Redis
+	implementation ("org.springframework.boot:spring-boot-starter-cache")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+	implementation("org.redisson:redisson-spring-boot-starter:3.26.0")
+
 	// QueryDSL
 	implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
 	annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
