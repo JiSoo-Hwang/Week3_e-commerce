@@ -9,6 +9,7 @@ import kr.jsh.ecommerce.domain.order.Order;
 import kr.jsh.ecommerce.domain.order.OrderRepository;
 import kr.jsh.ecommerce.domain.order.OrderStatus;
 import kr.jsh.ecommerce.domain.wallet.Wallet;
+import kr.jsh.ecommerce.event.OrderPaidEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,10 +17,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -35,6 +38,9 @@ class PaymentServiceTest {
 
     @Mock
     private OrderRepository orderRepository;
+
+    @Mock
+    private ApplicationEventPublisher eventPublisher;
 
     @Mock
     private Wallet mockWallet;
@@ -136,4 +142,36 @@ class PaymentServiceTest {
         verify(orderRepository, times(1)).save(mockOrder);
     }
 
+    @Test
+    @DisplayName("결제 성공시 OrderPaidEvent가 정상적으로 발행된다")
+    void createPayemnt_publishesOrderPaidEvent(){
+        //Given : payment를 저장했다는 것을 가정
+        when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation->invocation.getArgument(0));
+
+        //When : 결제 실행 (쿠폰 없이)
+        Payment payment = paymentService.createPayment(mockOrder,null);
+
+        //Then : 이벤트가 정상적으로 발행되는지 확인
+        verify(eventPublisher,times(1)).publishEvent(any(OrderPaidEvent.class));
+
+    }
+
+    @Test
+    @DisplayName("결제 실패 시 외부 API가 호출되지 않아야 한다")
+    void createPayemnt_doesNotpublisheOrderPaidEventOnFailure(){
+        //Given : 잔액 부족으로 예외 발생 가정
+        doThrow(new BaseCustomException(BaseErrorCode.INSUFFICIENT_BALANCE))
+                .when(mockWallet).spendCash(anyInt());
+
+        //When & Then : 실패한 결제를 만들기
+        when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation->invocation.getArgument(0));
+        Payment failedPayment = paymentService.createPayment(mockOrder,null);
+        assertThat(failedPayment.getPaymentStatus()).isEqualTo(PaymentStatus.FAILED);
+
+        //결제를 실패했을 때 OrderPaidEvent가 발행되지 않아야 함
+        verify(eventPublisher,never()).publishEvent(any(OrderPaidEvent.class));
+
+        //결제 실패시 외부 API도 호출되지 않아야 함
+        verifyNoInteractions(eventPublisher);
+    }
 }
