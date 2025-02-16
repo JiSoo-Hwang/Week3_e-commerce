@@ -40,7 +40,7 @@ public class Wallet {
 
     public void spendCash(int amount) {
         if (amount > this.balance||amount%100!=0) {
-            throw new BaseCustomException(BaseErrorCode.INVALID_PARAMETER, new String[]{String.valueOf(amount)});
+            throw new BaseCustomException(BaseErrorCode.INSUFFICIENT_BALANCE, new String[]{String.valueOf(amount)});
         }
         this.balance -= amount;
     }
