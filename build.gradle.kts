@@ -45,6 +45,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.redisson:redisson-spring-boot-starter:3.26.0")
 
+	//Kafka
+	implementation("org.springframework.kafka:spring-kafka")
+
 	// QueryDSL
 	implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
 	annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
@@ -64,6 +67,7 @@ dependencies {
 	testImplementation("org.testcontainers:mysql:1.19.0")
 	testImplementation("org.testcontainers:junit-jupiter:1.19.0")
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
 }
 
 // QueryDSL 설정
