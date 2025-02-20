@@ -36,7 +36,7 @@ public class SendOrderPaidEventTest {
     public void setUp() {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka-1:9092,kafka-2:9093,kafka-3:9094");
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "order-group");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
