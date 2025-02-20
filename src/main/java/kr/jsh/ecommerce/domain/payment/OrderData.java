@@ -13,8 +13,8 @@ public class OrderData {
     private final Long orderId;
     private final LocalDateTime orderDate;
     private final int totalAmount;
-
+/*
     public static OrderData from(final Order order){
         return new OrderData(order.getOrderId(),order.getOrderDate(),order.getTotalAmount());
-    }
+    }*/
 }

@@ -10,6 +10,7 @@ import kr.jsh.ecommerce.domain.wallet.Wallet;
 import kr.jsh.ecommerce.event.OrderPaidEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,8 @@ import java.time.LocalDateTime;
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
-    private final ApplicationEventPublisher eventPublisher;
+//    private final ApplicationEventPublisher eventPublisher;
+    private final KafkaTemplate<String,OrderPaidEvent> kafkaTemplate;
 
     @Transactional
     public Payment createPayment(Order order, CouponIssue issuedCoupon) {
@@ -32,7 +34,9 @@ public class PaymentService {
 
         //주문 결제 완료 이벤트 발행
         if (payment.getPaymentStatus() == PaymentStatus.SUCCESS) {
-            eventPublisher.publishEvent(new OrderPaidEvent(this, order));
+//            eventPublisher.publishEvent(new OrderPaidEvent(this, order));
+            OrderPaidEvent event = new OrderPaidEvent(order);
+            kafkaTemplate.send("order-paid-topic",event);
         }
         return payment;
     }
