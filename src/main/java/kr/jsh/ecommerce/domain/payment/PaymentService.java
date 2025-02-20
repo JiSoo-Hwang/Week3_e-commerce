@@ -11,6 +11,7 @@ import kr.jsh.ecommerce.event.OrderPaidEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -36,7 +37,6 @@ public class PaymentService {
         return payment;
     }
 
-    @Transactional
     public Payment decreaseBalance(Order order, CouponIssue issuedCoupon) {
         Wallet wallet = order.getCustomer().getWallet();
         // 쿠폰 할인 적용
@@ -58,10 +58,17 @@ public class PaymentService {
             payment.completePayment();
         } catch (BaseCustomException e) {
             // 예외 발생 시 결제 실패 처리
-            payment.failPayment();
+            markPaymentAsFail(payment);
+            throw e;
         }
-
         return payment;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void markPaymentAsFail(Payment payment){
+        payment.failPayment();
+        paymentRepository.save(payment);
+        paymentRepository.flush();
     }
 
     public Order updateOrderStatus(Order order, Payment payment) {
