@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 public class MockDataPlatformClient implements DataPlatFormClient {
     @Async
     @Override
-    public void sendOrderData(OrderData orderData) {
+    public void sendOrderData(Long orderId) {
         try{
-            log.info("주문 정보 전송. {}",orderData);
+            log.info("주문 정보 전송. {}",orderId);
         }catch (Exception e){
-            log.error("주문 정보 전송 실패. 주문아이디={}",orderData.getOrderId(),e);
+            log.error("주문 정보 전송 실패. 주문아이디={}",orderId,e);
         }
     }
 }
