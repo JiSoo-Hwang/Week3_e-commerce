@@ -19,12 +19,12 @@ public class OrderPaidEventListener {
     @Async
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void sendOrderInfo(OrderPaidEvent event){
-      log.info("결제 완료 감지! 결제 완료된 주문 id:{}",event.getOrder().getOrderId());
-      sendOrderToExternalAPI(event.getOrder());
+      log.info("결제 완료 감지! 결제 완료된 주문 id:{}",event.getOrderId());
+      sendOrderToExternalAPI(event.getOrderId());
     }
 
-    private void sendOrderToExternalAPI(Order order){
-        dataPlatFormClient.sendOrderData(OrderData.from(order));
+    private void sendOrderToExternalAPI(Long orderId){
+        dataPlatFormClient.sendOrderData(orderId);
         log.info("외부 API로 주문 정보 전송 완료!");
     }
 }

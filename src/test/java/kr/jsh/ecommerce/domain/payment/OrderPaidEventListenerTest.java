@@ -32,13 +32,13 @@ public class OrderPaidEventListenerTest {
     @Test
     void sendOrderInfoAfterPayment(){
         //given
-        OrderPaidEvent event = new OrderPaidEvent(this, order);
+        OrderPaidEvent event = new OrderPaidEvent(order);
 
         //when
         orderPaidEventListener.sendOrderInfo(event);
 
         //then
         //외부 API가 한 번 호출되었는지 확인
-        verify(dataPlatFormClient,times(1)).sendOrderData(any(OrderData.class));
+        verify(dataPlatFormClient,times(1)).sendOrderData(any(Long.class));
     }
 }
