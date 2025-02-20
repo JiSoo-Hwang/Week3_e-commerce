@@ -32,12 +32,6 @@ public class SendOrderPaidEventTest {
 
     private Consumer<String, OrderPaidEvent> consumer;
 
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        String bootstrapServers = "kafka-1:9092,kafka-2:9093,kafka-3:9094";
-        System.out.println("🚀 Kafka 테스트 부트스트랩 서버 주소: " + bootstrapServers);
-        registry.add("spring.kafka.bootstrap-servers", () -> bootstrapServers);
-    }
     @BeforeEach
     public void setUp() {
         Properties props = new Properties();
