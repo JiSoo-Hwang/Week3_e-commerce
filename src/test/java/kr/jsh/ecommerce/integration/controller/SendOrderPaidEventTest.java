@@ -44,6 +44,9 @@ public class SendOrderPaidEventTest {
 
         consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Collections.singletonList("order-paid-topic"));
+
+        consumer.poll(Duration.ofMillis(100));
+        consumer.seekToBeginning(consumer.assignment());//테스트 한정 설정
     }
 
     @AfterEach
