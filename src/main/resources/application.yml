@@ -42,17 +42,18 @@ spring:
     password: application
 
   kafka:
-    bootstrap-servers: kafka-1:9092,kafka-2:9093,kafka-3:9094
+    bootstrap-servers: localhost:10002,localhost:10003,localhost:10004
+    consumer:
+      group-id: order-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      retries: 3  # 메시지 전송 실패 시 최대 3번 재시도
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      group-id: test-group
-      auto-offset-reset: earliest
-      enable-auto-commit: false
 
 logging:
   level:
