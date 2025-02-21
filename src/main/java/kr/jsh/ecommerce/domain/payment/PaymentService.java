@@ -9,6 +9,7 @@ import kr.jsh.ecommerce.domain.payment.PaymentRepository;
 import kr.jsh.ecommerce.domain.wallet.Wallet;
 import kr.jsh.ecommerce.event.OrderPaidEvent;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.ExecutionException;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
-//    private final ApplicationEventPublisher eventPublisher;
     private final KafkaTemplate<String,OrderPaidEvent> kafkaTemplate;
 
     @Transactional
@@ -34,9 +36,8 @@ public class PaymentService {
 
         //주문 결제 완료 이벤트 발행
         if (payment.getPaymentStatus() == PaymentStatus.SUCCESS) {
-//            eventPublisher.publishEvent(new OrderPaidEvent(this, order));
             OrderPaidEvent event = new OrderPaidEvent(order);
-            kafkaTemplate.send("order-paid-topic",event);
+            sendOrderPaidEvent(event);
         }
         return payment;
     }
@@ -80,6 +81,15 @@ public class PaymentService {
         return order;
     }
 
+    private void sendOrderPaidEvent(OrderPaidEvent event) {
+        try {
+            kafkaTemplate.send("order-paid-topic", event).get(); // ✅ 메시지 전송이 완료될 때까지 대기
+            log.info("Kafka 메시지 전송 성공: {}", event);
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("Kafka 메시지 전송 실패", e);
+            throw new RuntimeException("Kafka 메시지 전송 실패", e);
+        }
+    }
 
 /*
     @Transactional
