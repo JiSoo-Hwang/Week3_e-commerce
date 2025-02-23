@@ -15,7 +15,7 @@ public class OrderPaidEventConsumer {
     public void consume(OrderPaidEvent event) {
         log.info("주문 이벤트 수신!: {}", event);
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("메시지 처리 중 인터럽트 발생...", e);

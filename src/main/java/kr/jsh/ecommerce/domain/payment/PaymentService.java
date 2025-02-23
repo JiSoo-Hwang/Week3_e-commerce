@@ -83,7 +83,7 @@ public class PaymentService {
 
     private void sendOrderPaidEvent(OrderPaidEvent event) {
         try {
-            kafkaTemplate.send("order-paid-topic", event).get(); // ✅ 메시지 전송이 완료될 때까지 대기
+            kafkaTemplate.send("order-paid-topic", event).get(); // 메시지 전송이 완료될 때까지 대기
             log.info("Kafka 메시지 전송 성공: {}", event);
         } catch (InterruptedException | ExecutionException e) {
             log.error("Kafka 메시지 전송 실패", e);
