@@ -1,18 +1,25 @@
 package kr.jsh.ecommerce.event;
 
 import kr.jsh.ecommerce.domain.order.Order;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 
-public class OrderPaidEvent extends ApplicationEvent {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderPaidEvent /*extends ApplicationEvent*/ {
 
-    private final Order order;
+    private Long orderId;
+    private Long customerId;
+    private int totalAmount;
 
-    public OrderPaidEvent(Object source, Order order){
-        super(source);
-        this.order = order;
-    }
-
-    public Order getOrder(){
-        return order;
+    public OrderPaidEvent(Order order) {
+        this.orderId = order.getOrderId();
+        this.customerId = order.getCustomer().getCustomerId();
+        this.totalAmount = order.getTotalAmount();
     }
 }
