@@ -1,14 +1,9 @@
 version: '3'
 
-networks:
-  kafka-cluster:
-    driver: bridge
-
 services:
   mysql:
     image: mysql:8.0
     container_name: mysql
-    restart: always
     ports:
       - "3306:3306"
     environment:
@@ -18,8 +13,12 @@ services:
       MYSQL_DATABASE: hhplus
     volumes:
       - ./data/mysql/:/var/lib/mysql
-    networks:
-      - kafka-cluster
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+    command: redis-server
 
   zookeeper:
     image: bitnami/zookeeper:3.9.2
@@ -40,7 +39,6 @@ services:
     image: bitnami/kafka:3.7.0
     container_name: kafka-1
     hostname: kafka-1
-    restart: always
     ports:
       - "10002:9094"
     environment:
@@ -61,7 +59,6 @@ services:
     image: bitnami/kafka:3.7.0
     container_name: kafka-2
     hostname: kafka-2
-    restart: always
     ports:
       - "10003:9094"
     environment:
@@ -82,7 +79,6 @@ services:
     image: bitnami/kafka:3.7.0
     container_name: kafka-3
     hostname: kafka-3
-    restart: always
     ports:
       - "10004:9094"
     environment:
@@ -102,7 +98,6 @@ services:
   kafka-ui:
     image: provectuslabs/kafka-ui:v0.7.2
     container_name: kafka-ui
-    restart: always
     depends_on:
       - kafka-1
       - kafka-2
@@ -121,3 +116,7 @@ volumes:
   kafka1_data:
   kafka2_data:
   kafka3_data:
+
+networks:
+  kafka-cluster:
+    driver: bridge
