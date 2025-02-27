@@ -111,11 +111,75 @@ services:
     networks:
       - kafka-cluster
 
+  # Elasticsearch: APM 데이터와 기타 로그를 저장하는 검색엔진
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  # Kibana: Elasticsearch 데이터를 시각화하는 대시보드
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.9.0
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  # APM Server: 애플리케이션 성능 데이터를 수집하여 Elasticsearch에 전송
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:8.9.0
+    container_name: apm-server
+    command: >
+      apm-server -e
+      -E apm-server.host=0.0.0.0:8200
+      -E output.elasticsearch.hosts=["http://elasticsearch:9200"]
+    ports:
+      - "8200:8200"
+    depends_on:
+      - elasticsearch
+
+  # InfluxDB: k6 메트릭 저장소 (InfluxDB v1.x 사용)
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+
+  # Grafana: InfluxDB 메트릭 시각화 대시보드
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+    volumes:
+      - grafana_data:/var/lib/grafana
+
 volumes:
   zookeeper_data:
   kafka1_data:
   kafka2_data:
   kafka3_data:
+  esdata:
+  influxdb_data:
+  grafana_data:
 
 networks:
   kafka-cluster:
