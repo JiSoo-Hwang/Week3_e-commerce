@@ -38,13 +38,11 @@ public class OrderService {
     public OrderCreateResponse saveOrder(Order order, List<OrderFruitRequest> orderFruitRequests) {
         //주문 가능한 과일만 저장
         List<OrderFruit> validOrderFruits = new ArrayList<>();
-
         for (OrderFruitRequest orderFruitRequest : orderFruitRequests) {
             try {
                 // 1. 비관적 락을 사용하여 상품 조회
                 Fruit fruit = fruitRepository.findByIdForUpdate(Long.parseLong(orderFruitRequest.fruitId()))
-                        .orElseThrow(() -> new BaseCustomException(BaseErrorCode.NOT_FOUND, new String[]{orderFruitRequest.fruitName()}));
-
+                        .orElseThrow(() -> new BaseCustomException(BaseErrorCode.NOT_FOUND, new String[]{orderFruitRequest.fruitId()}));
                 // 2. 재고 차감
                 deductStockAndSaveSingleFruit(fruit,orderFruitRequest.quantity());
                 // 3. 주문 항목 생성 및 추가
@@ -56,12 +54,12 @@ public class OrderService {
                 );
                 validOrderFruits.add(orderFruit);
             } catch (BaseCustomException ex) {
-                log.warn("재고 부족으로 주문에서 제외된 과일 : {}", orderFruitRequest.fruitName());
+                log.warn("재고 부족으로 주문에서 제외된 과일 : {}", orderFruitRequest.fruitId());
             }
         }
 
         // 모든 과일이 품절되었으면 주문을 저장하지 않고 예외 발생
-        if (order.getOrderFruits().isEmpty()) {
+        if (validOrderFruits.isEmpty()) {
             throw new BaseCustomException(BaseErrorCode.OUT_OF_STOCK, new String[]{"모든 상품이 품절되었습니다."});
         }
 
@@ -78,7 +76,6 @@ public class OrderService {
         return OrderCreateResponse.fromOrder(order);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deductStockAndSaveSingleFruit(Fruit fruit, int quantity) {
         if (!fruit.hasEnoughStock(quantity)) {
             throw new BaseCustomException(BaseErrorCode.OUT_OF_STOCK, new String[]{fruit.getFruitName()});
